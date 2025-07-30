@@ -1,0 +1,8 @@
+Dataset/
+Rand_dataset/
+venv/
+*.h5
+*.pdf
+__pycache__/
+*.pyc
+.DS_Store

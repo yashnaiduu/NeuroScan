@@ -33,8 +33,8 @@ DATASET_SUBFOLDERS = ['Training', 'Testing']
 # Configure Gemini API
 # The API key is read from the GOOGLE_API_KEY environment variable
 try:
-    genai.configure(api_key='AIzaSyD9Pr7kT2QQPMb3WxfD8U46juvn3fGsg80')
-    gemini_vision_model = genai.GenerativeModel('gemini-2.5-flash-preview-04-17')
+    genai.configure(api_key='AIzaSyA_3VlDGiQSM6tq3ghzF6nGUUC-89wvbis')
+    gemini_vision_model = genai.GenerativeModel('gemini-2.5-flash-preview-05-20')
     logger.info("Gemini API configured successfully.")
 except Exception as e:
     logger.error(f"Failed to configure Gemini API: {str(e)}")
@@ -525,4 +525,5 @@ if __name__ == '__main__':
     # Initialize the Grad-CAM model when the app starts
     initialize_grad_model()
     # Run the Flask app
-    app.run(debug=True, host='0.0.0.0', port=5050)
+    port = int(os.environ.get("PORT", 5050))
+    app.run(debug=True, host='0.0.0.0', port=port)
