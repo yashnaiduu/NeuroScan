@@ -280,7 +280,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Issues**: [GitHub Issues](https://github.com/yourusername/NeuroScan-Brain-Tumor-Classification/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/yourusername/NeuroScan-Brain-Tumor-Classification/discussions)
-- **Email**: your.email@example.com
+- **Email**: yash.22bce8038@vitapstudent.ac.in
 
 ---
 
