@@ -33,7 +33,7 @@ DATASET_SUBFOLDERS = ['Training', 'Testing']
 # Configure Gemini API
 # The API key is read from the GOOGLE_API_KEY environment variable
 try:
-    genai.configure(api_key='AIzaSyA_3VlDGiQSM6tq3ghzF6nGUUC-89wvbis')
+    genai.configure(api_key='Add Your Own APi Key')
     gemini_vision_model = genai.GenerativeModel('gemini-2.5-flash-preview-05-20')
     logger.info("Gemini API configured successfully.")
 except Exception as e:
