@@ -44,7 +44,7 @@ idna==3.10
 imageio==2.37.0
 importlib_metadata==8.6.1
 ipykernel==6.29.5
-ipython==9.1.0
+ipython==8.24.0
 ipython_pygments_lexers==1.1.1
 itsdangerous==2.2.0
 jedi==0.19.2
