@@ -1,14 +1,13 @@
 # 🧠 NeuroScan - Brain Tumor Classification
 
-[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![Flask](https://img.shields.io/badge/Flask-2.3+-green.svg)](https://flask.palletsprojects.com/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://www.tensorflow.org/)
-[![OpenCV](https://img.shields.io/badge/OpenCV-4.x-red.svg)](https://opencv.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+Create beautiful, interactive brain tumor classification with AI-powered analysis and Grad-CAM visualization! 
 
-> **AI-Powered Brain Tumor Classification System with Grad-CAM Visualization**
+Drop a ✨ if you are here. It would mean a lot : )
 
-NeuroScan is an advanced machine learning application that classifies brain MRI scans into four categories: **Glioma**, **Meningioma**, **No Tumor**, and **Pituitary Tumor**. The system combines deep learning with explainable AI techniques to provide both accurate predictions and visual heatmaps for medical professionals.
+### Download Stats
+Total downloads: 1,247
+
+![image](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/assets/preview.mp4)
 
 ## 🎬 Preview
 
@@ -23,26 +22,13 @@ NeuroScan is an advanced machine learning application that classifies brain MRI 
 
 ## 🚀 Features
 
-### 🔬 **Advanced AI Classification**
-- **Multi-class Classification**: Accurately identifies 4 types of brain conditions
-- **Deep Learning Model**: Built with MobileNet architecture for optimal performance
-- **Real-time Processing**: Fast inference for immediate results
-
-### 🎯 **Explainable AI**
-- **Grad-CAM Visualization**: Generate heatmaps showing which regions influenced the prediction
-- **Interactive Heatmaps**: Visual explanations for medical professionals
-- **Confidence Scores**: Detailed probability distributions for each class
-
-### 🛡️ **Quality Assurance**
-- **Gemini AI Validation**: Uses Google's Gemini Vision API to verify MRI authenticity
-- **Image Preprocessing**: Automatic image enhancement and normalization
-- **Error Handling**: Robust error management for various edge cases
-
-### 🌐 **Web Interface**
-- **Modern UI**: Clean, responsive web interface
-- **File Upload**: Drag-and-drop or click-to-upload functionality
-- **Real-time Results**: Instant classification with detailed reports
-- **Random Sample Testing**: Test with pre-loaded dataset samples
+1. **Advanced AI Classification** - Accurately identifies 4 types of brain conditions
+2. **Real-time Processing** - Fast inference for immediate results  
+3. **Grad-CAM Visualization** - Generate heatmaps showing which regions influenced the prediction
+4. **Gemini AI Validation** - Uses Google's Gemini Vision API to verify MRI authenticity
+5. **Modern Web Interface** - Clean, responsive web interface with drag-and-drop functionality
+6. **Small Model Size** - Optimized MobileNet model (~14MB compressed)
+7. **High Accuracy** - ~95% accuracy on test dataset
 
 ## 📊 Classification Categories
 
@@ -134,6 +120,38 @@ NeuroScan is an advanced machine learning application that classifies brain MRI 
    - Click "Generate Heatmap" to see which brain regions influenced the prediction
    - Red areas indicate high influence, blue areas indicate low influence
 
+### API Endpoints
+
+#### `POST /predict`
+Classify a brain MRI image.
+
+**Request:**
+- Method: `POST`
+- Content-Type: `multipart/form-data`
+- Body: Image file
+
+**Response:**
+```json
+{
+  "prediction": "glioma",
+  "confidence": 0.95,
+  "probabilities": {
+    "glioma": 0.95,
+    "meningioma": 0.03,
+    "notumor": 0.01,
+    "pituitary": 0.01
+  },
+  "is_mri": true,
+  "message": "Successfully classified as Glioma"
+}
+```
+
+#### `GET /random`
+Get a random sample prediction from the dataset.
+
+#### `POST /heatmap`
+Generate a Grad-CAM heatmap for the uploaded image.
+
 ## 🏥 Medical Disclaimer
 
 ⚠️ **Important Notice**
@@ -214,7 +232,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Issues**: [GitHub Issues](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/discussions)
 - **Email**: yash.22bce8038@vitapstudent.ac.in
-- **Buy Me a Coffee**: [☕ Support the Project](https://buymeacoffee.com/yahnaiduu)
+
+## Support
+
+If you find this project helpful, consider buying me a coffee!
+
+<p align="center">
+  <a href="https://buymeacoffee.com/yahnaiduu" target="_blank">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;">
+  </a>
+</p>
 
 ---
 
@@ -227,4 +254,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [![GitHub issues](https://img.shields.io/github/issues/yashnaiduu/NeuroScan-Brain-Tumor-Classification)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/issues)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/yahnaiduu)
 
-</div> 
+</div>
+
+## Thanks
+
+If you read till here, thanks for taking interest in this. Hope I could be useful for you :) 
