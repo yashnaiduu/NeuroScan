@@ -7,8 +7,7 @@ Drop a ✨ if you are here. It would mean a lot : )
 ## 🎬 Preview
 
 <div align="center">
-
-**📹 [Watch Demo on YouTube](https://youtu.be/LErblUjkCtU)**
+<iframe width="800" height="450" src="https://www.youtube.com/embed/LErblUjkCtU" title="NeuroScan Brain Tumor Classification Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);"></iframe>
 
 </div>
 
