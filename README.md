@@ -14,11 +14,7 @@ NeuroScan is an advanced machine learning application that classifies brain MRI 
 
 <div align="center">
 
-[![Watch Preview Video](https://img.shields.io/badge/🎬-Watch%20Preview%20Video-blue?style=for-the-badge&logo=github)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/issues/1#issue-3303710365)
-
-*Click the button above to watch the preview video*
-
-**📹 [View Video in GitHub Issue](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/issues/1#issue-3303710365)**
+![Preview Video](preview.mp4)
 
 </div>
 
