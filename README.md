@@ -14,9 +14,10 @@ NeuroScan is an advanced machine learning application that classifies brain MRI 
 
 <div align="center">
 
-[![Preview Video](https://img.shields.io/badge/🎬-Watch%20Preview%20Video-blue?style=for-the-badge&logo=github)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/releases/latest/download/preview.mp4)
-
-*Click the button above to watch the preview video*
+<video width="800" height="450" controls style="border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+  <source src="assets/preview.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 </div>
 
@@ -133,62 +134,6 @@ NeuroScan is an advanced machine learning application that classifies brain MRI 
    - Click "Generate Heatmap" to see which brain regions influenced the prediction
    - Red areas indicate high influence, blue areas indicate low influence
 
-### API Endpoints
-
-#### `POST /predict`
-Classify a brain MRI image.
-
-**Request:**
-- Method: `POST`
-- Content-Type: `multipart/form-data`
-- Body: Image file
-
-**Response:**
-```json
-{
-  "prediction": "glioma",
-  "confidence": 0.95,
-  "probabilities": {
-    "glioma": 0.95,
-    "meningioma": 0.03,
-    "notumor": 0.01,
-    "pituitary": 0.01
-  },
-  "is_mri": true,
-  "message": "Successfully classified as Glioma"
-}
-```
-
-#### `GET /random`
-Get a random sample prediction from the dataset.
-
-**Response:**
-```json
-{
-  "prediction": "meningioma",
-  "confidence": 0.87,
-  "image_path": "path/to/sample.jpg",
-  "probabilities": {...}
-}
-```
-
-#### `POST /heatmap`
-Generate a Grad-CAM heatmap for the uploaded image.
-
-**Request:**
-- Method: `POST`
-- Content-Type: `multipart/form-data`
-- Body: Image file
-
-**Response:**
-```json
-{
-  "heatmap_base64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
-  "class_index": 0,
-  "message": "Heatmap generated successfully"
-}
-```
-
 ## 🏥 Medical Disclaimer
 
 ⚠️ **Important Notice**
@@ -218,29 +163,6 @@ This application is designed for **research and educational purposes only**.
 - **Output**: 4 classes (glioma, meningioma, notumor, pituitary)
 - **Optimization**: Adam optimizer with categorical crossentropy loss
 
-## 🚀 Deployment
-
-### Railway Deployment
-
-1. **Connect to Railway**
-   - Link your GitHub repository to Railway
-   - Railway will automatically detect the Dockerfile
-
-2. **Environment Variables**
-   - Set `GOOGLE_API_KEY` in Railway dashboard
-   - Configure `PORT` if needed
-
-3. **Deploy**
-   - Railway will automatically build and deploy your application
-
-### Other Platforms
-
-The application can be deployed on:
-- **Heroku**: Use the provided Dockerfile
-- **AWS**: Deploy using ECS or EC2
-- **Google Cloud**: Use Cloud Run or Compute Engine
-- **Azure**: Deploy to App Service or Container Instances
-
 ## 📈 Performance
 
 - **Accuracy**: ~95% on test dataset
@@ -253,75 +175,20 @@ The application can be deployed on:
 We welcome contributions! Please follow these steps:
 
 1. **Fork the repository**
-   - Click the "Fork" button at the top right of this repository
-   - This creates a copy of the repository in your GitHub account
-
-2. **Clone your forked repository**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/NeuroScan-Brain-Tumor-Classification.git
-   cd NeuroScan-Brain-Tumor-Classification
-   ```
-
-3. **Add the original repository as upstream**
-   ```bash
-   git remote add upstream https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification.git
-   ```
-
-4. **Create a feature branch**
+2. **Create a feature branch**
    ```bash
    git checkout -b feature/amazing-feature
    ```
-
-5. **Make your changes**
-   - Edit the code files
-   - Add new features or fix bugs
-   - Update documentation if needed
-
-6. **Commit your changes**
+3. **Commit your changes**
    ```bash
    git add .
    git commit -m 'Add amazing feature'
    ```
-
-7. **Push to your branch**
+4. **Push to the branch**
    ```bash
    git push origin feature/amazing-feature
    ```
-
-8. **Open a Pull Request**
-   - Go to your forked repository on GitHub
-   - Click on "Compare & pull request" button
-   - Fill in the PR template:
-
-   ```markdown
-   ## Description
-   Brief description of the changes made
-
-   ## Type of Change
-   - [ ] Bug fix (non-breaking change which fixes an issue)
-   - [ ] New feature (non-breaking change which adds functionality)
-   - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-   - [ ] Documentation update
-
-   ## Testing
-   - [ ] I have tested my changes locally
-   - [ ] I have added tests for my changes
-   - [ ] All tests pass
-
-   ## Checklist
-   - [ ] My code follows the style guidelines of this project
-   - [ ] I have performed a self-review of my own code
-   - [ ] I have commented my code, particularly in hard-to-understand areas
-   - [ ] I have made corresponding changes to the documentation
-   - [ ] My changes generate no new warnings
-   - [ ] I have added tests that prove my fix is effective or that my feature works
-   - [ ] New and existing unit tests pass locally with my changes
-   ```
-
-9. **Wait for review**
-   - Your PR will be reviewed by maintainers
-   - Address any feedback or requested changes
-   - Once approved, your changes will be merged!
+5. **Open a Pull Request**
 
 ### Development Guidelines
 
@@ -329,8 +196,6 @@ We welcome contributions! Please follow these steps:
 - Add tests for new features
 - Update documentation as needed
 - Ensure all tests pass before submitting
-- Write clear commit messages
-- Keep PRs focused and small
 
 ## 📝 License
 
