@@ -13,10 +13,9 @@ NeuroScan is an advanced machine learning application that classifies brain MRI 
 ## 🎬 Preview
 
 <div align="center">
-  <video width="800" height="450" controls style="border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
-    <source src="./preview.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+
+![Preview Video](assets/preview.mp4)
+
 </div>
 
 ## 🚀 Features
@@ -71,7 +70,7 @@ NeuroScan is an advanced machine learning application that classifies brain MRI 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/NeuroScan-Brain-Tumor-Classification.git
+   git clone https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification.git
    cd NeuroScan-Brain-Tumor-Classification
    ```
 
@@ -287,8 +286,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/NeuroScan-Brain-Tumor-Classification/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/NeuroScan-Brain-Tumor-Classification/discussions)
+- **Issues**: [GitHub Issues](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/discussions)
 - **Email**: yash.22bce8038@vitapstudent.ac.in
 
 ---
@@ -297,8 +296,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ for Medical AI Research**
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/NeuroScan-Brain-Tumor-Classification?style=social)](https://github.com/yourusername/NeuroScan-Brain-Tumor-Classification)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/NeuroScan-Brain-Tumor-Classification?style=social)](https://github.com/yourusername/NeuroScan-Brain-Tumor-Classification)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/NeuroScan-Brain-Tumor-Classification)](https://github.com/yourusername/NeuroScan-Brain-Tumor-Classification/issues)
+[![GitHub stars](https://img.shields.io/github/stars/yashnaiduu/NeuroScan-Brain-Tumor-Classification?style=social)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification)
+[![GitHub forks](https://img.shields.io/github/forks/yashnaiduu/NeuroScan-Brain-Tumor-Classification?style=social)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification)
+[![GitHub issues](https://img.shields.io/github/issues/yashnaiduu/NeuroScan-Brain-Tumor-Classification)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/issues)
 
 </div> 
