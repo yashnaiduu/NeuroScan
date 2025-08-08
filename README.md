@@ -289,6 +289,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Issues**: [GitHub Issues](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/discussions)
 - **Email**: yash.22bce8038@vitapstudent.ac.in
+- **Buy Me a Coffee**: [☕ Support the Project](https://buymeacoffee.com/yahnaiduu)
 
 ---
 
@@ -299,5 +300,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [![GitHub stars](https://img.shields.io/github/stars/yashnaiduu/NeuroScan-Brain-Tumor-Classification?style=social)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification)
 [![GitHub forks](https://img.shields.io/github/forks/yashnaiduu/NeuroScan-Brain-Tumor-Classification?style=social)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification)
 [![GitHub issues](https://img.shields.io/github/issues/yashnaiduu/NeuroScan-Brain-Tumor-Classification)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/issues)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/yahnaiduu)
 
 </div> 
