@@ -4,17 +4,12 @@ Create beautiful, interactive brain tumor classification with AI-powered analysi
 
 Drop a ✨ if you are here. It would mean a lot : )
 
-### Download Stats
-Total downloads: 1,247
-
-![image](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/assets/preview.mp4)
-
 ## 🎬 Preview
 
 <div align="center">
 
 <video width="800" height="450" controls style="border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
-  <source src="preview.mp4" type="video/mp4">
+  <source src="https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/raw/main/preview.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -233,16 +228,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Discussions**: [GitHub Discussions](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/discussions)
 - **Email**: yash.22bce8038@vitapstudent.ac.in
 
-## Support
-
-If you find this project helpful, consider buying me a coffee!
-
-<p align="center">
-  <a href="https://buymeacoffee.com/yahnaiduu" target="_blank">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;">
-  </a>
-</p>
-
 ---
 
 <div align="center">
@@ -252,7 +237,6 @@ If you find this project helpful, consider buying me a coffee!
 [![GitHub stars](https://img.shields.io/github/stars/yashnaiduu/NeuroScan-Brain-Tumor-Classification?style=social)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification)
 [![GitHub forks](https://img.shields.io/github/forks/yashnaiduu/NeuroScan-Brain-Tumor-Classification?style=social)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification)
 [![GitHub issues](https://img.shields.io/github/issues/yashnaiduu/NeuroScan-Brain-Tumor-Classification)](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/issues)
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/yahnaiduu)
 
 </div>
 
