@@ -14,7 +14,7 @@ NeuroScan is an advanced machine learning application that classifies brain MRI 
 
 <div align="center">
   <video width="800" height="450" controls style="border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
-    <source src="/Users/yashnaidu/Desktop/preview.mp4" type="video/mp4">
+    <source src="./preview.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
