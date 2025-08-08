@@ -10,6 +10,15 @@
 
 NeuroScan is an advanced machine learning application that classifies brain MRI scans into four categories: **Glioma**, **Meningioma**, **No Tumor**, and **Pituitary Tumor**. The system combines deep learning with explainable AI techniques to provide both accurate predictions and visual heatmaps for medical professionals.
 
+## 🎬 Preview
+
+<div align="center">
+  <video width="800" height="450" controls style="border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+    <source src="/Users/yashnaidu/Desktop/preview.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
 ## 🚀 Features
 
 ### 🔬 **Advanced AI Classification**
