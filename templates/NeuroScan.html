@@ -27,14 +27,13 @@
             --ring: #00f7ff;
             --radius: 0.5rem;
             --transition-duration: 0.2s;
-            --shadow: 0 0 10px rgba(0, 247, 255, 0.15);
-            --shadow-md: 0 0 20px rgba(0, 247, 255, 0.2);
-            --shadow-lg: 0 0 30px rgba(0, 247, 255, 0.25);
+            --shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+            --shadow-md: 0 0 20px rgba(0, 247, 255, 0.4);
+            --shadow-lg: 0 0 30px rgba(0, 247, 255, 0.5);
             --card-rgb: 18, 18, 31;
-            --neon-glow: 0 0 5px rgba(0, 247, 255, 0.25), 0 0 10px rgba(0, 247, 255, 0.15), 0 0 15px rgba(0, 247, 255, 0.05);
-            --accent-glow: 0 0 5px rgba(255, 0, 160, 0.25), 0 0 10px rgba(255, 0, 160, 0.15), 0 0 15px rgba(255, 0, 160, 0.05);
-            --font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --font-family-heading: 'Orbitron', 'Inter', sans-serif;
+            --neon-glow: 0 0 5px rgba(0, 247, 255, 0.5), 0 0 10px rgba(0, 247, 255, 0.3), 0 0 15px rgba(0, 247, 255, 0.1);
+            --accent-glow: 0 0 5px rgba(255, 0, 160, 0.5), 0 0 10px rgba(255, 0, 160, 0.3), 0 0 15px rgba(255, 0, 160, 0.1);
+            --font-family: 'Orbitron', 'Inter', sans-serif;
         }
 
         .light {
@@ -78,67 +77,12 @@
             font-family: var(--font-family);
             background-color: var(--background);
             color: var(--foreground);
-            line-height: 1.6;
-            font-size: 16px;
+            line-height: 1.5;
             transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(0, 247, 255, 0.02) 0%, transparent 25%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 160, 0.02) 0%, transparent 25%);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Glitter Effect */
-        .glitter {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .glitter-particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            animation: glitter 3s linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes glitter {
-            0% {
-                opacity: 0;
-                transform: translateY(0) rotate(0deg);
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-100px) rotate(360deg);
-            }
-        }
-
-        /* Interactive Cursor Trail */
-        .cursor-trail {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.1s ease;
-            box-shadow: 0 0 10px var(--primary);
+                radial-gradient(circle at 20% 30%, rgba(0, 247, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 160, 0.05) 0%, transparent 20%);
         }
 
         .container {
@@ -229,31 +173,30 @@
         }
 
         .nav-links a {
-            font-family: var(--font-family);
-            font-weight: 500;
-            font-size: 0.875rem;
             text-decoration: none;
             color: var(--foreground);
+            font-weight: 500;
+            font-size: 0.875rem;
             transition: all 0.3s ease;
             position: relative;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .nav-links a::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 50%;
+            bottom: -5px;
+            left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+            box-shadow: var(--neon-glow);
         }
 
         .nav-links a:hover::before {
-            width: 80%;
+            width: 100%;
         }
 
         .nav-links a:hover {
@@ -328,8 +271,8 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 247, 255, 0.03) 0%, transparent 35%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 160, 0.03) 0%, transparent 35%);
+                radial-gradient(circle at 20% 30%, rgba(0, 247, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 160, 0.1) 0%, transparent 30%);
             pointer-events: none;
         }
 
@@ -344,7 +287,6 @@
         }
 
         .hero h1 {
-            font-family: var(--font-family-heading);
             font-size: 3rem;
             font-weight: 900;
             margin-bottom: 1rem;
@@ -357,23 +299,15 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: var(--neon-glow);
-            transition: all 0.3s ease;
-        }
-
-        .hero h1:hover {
-            transform: scale(1.02);
-            filter: brightness(1.2);
         }
 
         .hero p {
-            font-family: var(--font-family);
             font-size: 1.1rem;
             margin-bottom: 2rem;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.5s 0.4s forwards;
             color: var(--muted-foreground);
-            line-height: 1.7;
         }
 
         .hero-btn {
@@ -401,18 +335,16 @@
             color: var(--primary-foreground);
             border: none;
             border-radius: var(--radius);
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.875rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             text-decoration: none;
             position: relative;
             overflow: hidden;
             text-transform: uppercase;
             letter-spacing: 1px;
             box-shadow: var(--neon-glow);
-            font-family: var(--font-family);
-            backdrop-filter: blur(10px);
         }
 
         .btn::before {
@@ -431,9 +363,8 @@
         }
 
         .btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.35);
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.7);
         }
 
         .btn:active {
@@ -589,7 +520,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 247, 255, 0.02) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 247, 255, 0.05) 0%, transparent 70%);
             transform: scale(0);
             transition: transform 0.5s ease;
         }
@@ -600,7 +531,7 @@
 
         .upload-area:hover, .upload-area.dragging {
             border-color: var(--primary);
-            background-color: rgba(0, 247, 255, 0.02);
+            background-color: rgba(0, 247, 255, 0.05);
             box-shadow: var(--neon-glow);
         }
 
@@ -1038,7 +969,7 @@
 
         .batch-action-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(0, 247, 255, 0.35);
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.7);
         }
 
         /* Tabs */
@@ -1077,8 +1008,8 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, 
-                rgba(0, 247, 255, 0.02), 
-                rgba(255, 0, 160, 0.02));
+                rgba(0, 247, 255, 0.05), 
+                rgba(255, 0, 160, 0.05));
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -1104,7 +1035,7 @@
         }
 
         .tab-trigger.active {
-            background-color: rgba(0, 247, 255, 0.03);
+            background-color: rgba(0, 247, 255, 0.1);
             color: var(--primary);
             text-shadow: var(--neon-glow);
             border-color: var(--primary);
@@ -1135,20 +1066,18 @@
             margin-top: 2rem;
         }
 
-        .info-card, .stat-card {
+        .info-card {
             background-color: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow);
-            font-family: var(--font-family);
-            backdrop-filter: blur(10px);
         }
 
-        .info-card::before, .stat-card::before {
+        .info-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -1158,146 +1087,42 @@
             background: linear-gradient(90deg, var(--primary), var(--accent));
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease;
         }
 
-        .info-card:hover::before, .stat-card:hover::before {
+        .info-card:hover::before {
             transform: scaleX(1);
         }
 
-        .info-card:hover, .stat-card:hover {
+        .info-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: var(--shadow-md);
             border-color: var(--primary);
-            background: linear-gradient(135deg, var(--card) 0%, rgba(0, 247, 255, 0.05) 100%);
         }
 
-        /* Interactive Floating Elements */
-        .floating-element {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(180deg);
-            }
-        }
-
-        /* Typography Improvements */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-family-heading);
-            line-height: 1.3;
+        .info-icon {
+            font-size: 2rem;
             margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .info-card:hover .info-icon {
+            transform: scale(1.2);
+            text-shadow: var(--neon-glow);
+        }
+
+        .info-title {
+            font-size: 1.25rem;
             font-weight: 700;
-            letter-spacing: -0.025em;
-        }
-
-        p, li, span, div {
-            font-family: var(--font-family);
-            line-height: 1.6;
-            color: var(--foreground);
-            text-rendering: optimizeLegibility;
-        }
-
-        /* Interactive Button Enhancements */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background-color: var(--primary);
-            color: var(--primary-foreground);
-            border: none;
-            border-radius: var(--radius);
-            font-weight: 600;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: var(--neon-glow);
-            font-family: var(--font-family);
-            backdrop-filter: blur(10px);
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.35);
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-lg {
-            padding: 0.75rem 2rem;
-            font-size: 1rem;
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--primary);
-            color: var(--primary-foreground);
-        }
-
-        .btn-accent {
-            background-color: var(--accent);
-            color: var(--accent-foreground);
-            box-shadow: var(--accent-glow);
-        }
-
-        .btn-accent:hover {
-            box-shadow: 0 0 20px rgba(255, 0, 160, 0.7);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--primary);
-            color: var(--primary-foreground);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .info-text {
+            color: var(--muted-foreground);
+            font-size: 0.95rem;
         }
 
         /* Stats */
@@ -1326,7 +1151,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 247, 255, 0.02) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 247, 255, 0.05) 0%, transparent 70%);
             opacity: 0;
             transform: scale(0.5);
             transition: transform 0.5s ease, opacity 0.5s ease;
@@ -1546,7 +1371,7 @@
         .modal-close:hover {
             color: var(--primary);
             transform: rotate(90deg);
-            box-shadow: 0 0 15px rgba(0, 247, 255, 0.35);
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.7);
         }
 
         #randomImageDisplay, #heatmapImage {
@@ -3005,156 +2830,7 @@
             batchFilesList.style.display = 'none';
             batchResults.style.display = 'none';
             heatmapImage.style.display = 'none';
-            
-            // Initialize glitter effect
-            initGlitter();
-            
-            // Initialize cursor trail
-            initCursorTrail();
-            
-            // Initialize interactive elements
-            initInteractiveElements();
         });
-
-        // Glitter Effect
-        function initGlitter() {
-            const glitterContainer = document.getElementById('glitter-container');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                createGlitterParticle(glitterContainer);
-            }
-
-            // Continuously create new particles
-            setInterval(() => {
-                if (glitterContainer.children.length < particleCount) {
-                    createGlitterParticle(glitterContainer);
-                }
-            }, 2000);
-        }
-
-        function createGlitterParticle(container) {
-            const particle = document.createElement('div');
-            particle.className = 'glitter-particle';
-            
-            // Random position
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            
-            // Random animation duration
-            const duration = 3 + Math.random() * 4;
-            particle.style.animationDuration = duration + 's';
-            
-            // Random delay
-            particle.style.animationDelay = Math.random() * 3 + 's';
-            
-            container.appendChild(particle);
-            
-            // Remove particle after animation
-            setTimeout(() => {
-                if (particle.parentNode) {
-                    particle.parentNode.removeChild(particle);
-                }
-            }, duration * 1000);
-        }
-
-        // Cursor Trail Effect
-        function initCursorTrail() {
-            const cursorTrail = document.getElementById('cursor-trail');
-            let mouseX = 0;
-            let mouseY = 0;
-            let trailX = 0;
-            let trailY = 0;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            function animateTrail() {
-                // Smooth follow effect
-                trailX += (mouseX - trailX) * 0.1;
-                trailY += (mouseY - trailY) * 0.1;
-                
-                cursorTrail.style.left = trailX - 3 + 'px';
-                cursorTrail.style.top = trailY - 3 + 'px';
-                
-                requestAnimationFrame(animateTrail);
-            }
-            
-            animateTrail();
-        }
-
-        // Interactive Elements
-        function initInteractiveElements() {
-            // Add hover effects to cards
-            const cards = document.querySelectorAll('.info-card, .stat-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                    this.style.boxShadow = '0 20px 40px rgba(0, 247, 255, 0.3)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                    this.style.boxShadow = 'var(--shadow)';
-                });
-            });
-
-            // Add ripple effect to buttons
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-                    
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = x + 'px';
-                    ripple.style.top = y + 'px';
-                    ripple.classList.add('ripple');
-                    
-                    this.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
-                });
-            });
-
-            // Add parallax effect to floating elements
-            const floatingElements = document.querySelectorAll('.floating-element');
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                floatingElements.forEach((element, index) => {
-                    const speed = 0.5 + (index * 0.1);
-                    element.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
-                });
-            });
-        }
-
-        // Add ripple effect styles
-        const style = document.createElement('style');
-        style.textContent = `
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.3);
-                transform: scale(0);
-                animation: ripple-animation 0.6s linear;
-                pointer-events: none;
-            }
-            
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
