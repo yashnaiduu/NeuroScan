@@ -8,10 +8,7 @@ Drop a ✨ if you are here. It would mean a lot : )
 
 <div align="center">
 
-<video width="800" height="450" controls style="border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
-  <source src="https://raw.githubusercontent.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/main/preview.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+**📹 [Watch Demo on YouTube](https://youtu.be/LErblUjkCtU)**
 
 </div>
 
