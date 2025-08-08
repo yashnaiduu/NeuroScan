@@ -9,7 +9,7 @@ Drop a ✨ if you are here. It would mean a lot : )
 <div align="center">
 
 <video width="800" height="450" controls style="border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
-  <source src="https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/raw/main/preview.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/main/preview.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -228,18 +228,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Discussions**: [GitHub Discussions](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/discussions)
 - **Email**: yash.22bce8038@vitapstudent.ac.in
 
-  ## Support
+## Support
 
 If you find this project helpful, consider buying me a coffee!
 
 <p align="center">
   <a href="https://buymeacoffee.com/yahnaiduu" target="_blank">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" 
-    alt="Buy Me A Coffee" style="height: 60px !important;width: 217px 
-    !important;">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;">
   </a>
 </p>
-
 
 ---
 
