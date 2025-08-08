@@ -228,6 +228,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Discussions**: [GitHub Discussions](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/discussions)
 - **Email**: yash.22bce8038@vitapstudent.ac.in
 
+  ## Support
+
+If you find this project helpful, consider buying me a coffee!
+
+<p align="center">
+  <a href="https://buymeacoffee.com/yahnaiduu" target="_blank">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" 
+    alt="Buy Me A Coffee" style="height: 60px !important;width: 217px 
+    !important;">
+  </a>
+</p>
+
+
 ---
 
 <div align="center">
