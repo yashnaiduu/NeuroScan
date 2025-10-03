@@ -1,8 +1,36 @@
-Dataset/
-Rand_dataset/
-venv/
-*.h5
-*.pdf
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.venv/
+env/
+venv/
+
+# OS junk
 .DS_Store
+Thumbs.db
+
+# Datasets and models (tracked via volumes or downloaded at runtime)
+Dataset/
+Rand_dataset/
+*.h5
+*.hdf5
+*.ckpt
+*.onnx
+
+# Uploads/temp
+Uploads/
+tmp/
+temp/
+*.log
+
+# Node/Next (if you ever re-add frontend)
+node_modules/
+.next/
+dist/
+
+# Videos or large media
+*.mp4
+*.avi
+*.mov
