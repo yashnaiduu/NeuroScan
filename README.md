@@ -1,176 +1,206 @@
-# NeuroScan Web - Brain Tumor Classification
+# NeuroScan — Brain Tumor Classification (Flask API + Grad‑CAM + Gemini MRI Validation)
 
-A modern web interface for the NeuroScan brain tumor classification system, built with Next.js and designed for easy deployment on platforms like Vercel, Netlify, and GitHub Pages.
+Production-ready Flask backend for brain tumor classification using a MobileNet TensorFlow model (.h5), with:
+- Gemini Vision API gate that validates an upload is a human brain MRI before classification
+- Grad‑CAM heatmaps for model interpretability
+- Single-container Docker deployment (Railway/any container host)
+- Optional HTML UI served by Flask (templates/NeuroScan.html)
+
+Live app
+- https://neuroscan.up.railway.app/
+
+API base URL
+- https://neuroscan.up.railway.app/
+
+If you previously used the separate Next.js web app, this repo now focuses on the backend API. The Flask template provides a simple UI. You can still connect any frontend via the documented API.
 
 ## 🚀 Features
 
-- **Modern Web Interface**: Clean, responsive design built with Next.js and Tailwind CSS
-- **Static Site Generation**: Optimized for deployment on static hosting platforms
-- **Interactive UI**: Drag-and-drop file upload with real-time feedback
-- **Visualization**: Grad-CAM heatmap generation for model interpretability
-- **Mobile Responsive**: Works seamlessly across all device sizes
-- **Accessibility**: Built with accessibility best practices
+- TensorFlow/Keras MobileNet model loaded from `MODEL_PATH`
+- Automatic model download at startup via `MODEL_URL` (handled by `entrypoint.sh`)
+- Gemini Vision check to reject non‑MRI images before model inference
+- Grad‑CAM heatmap generation for visual explanations
+- Dockerfile + Gunicorn entrypoint for reproducible, production-friendly deploys
+- CORS enabled for frontend integrations
 
-## 🛠️ Technology Stack
+## 🧱 Tech Stack
 
-- **Frontend**: Next.js 14, React 18, TypeScript
-- **Styling**: Tailwind CSS
-- **Icons**: Lucide React
-- **Deployment**: Static export for universal hosting
+- Python 3.11, Flask, CORS
+- TensorFlow/Keras, NumPy, OpenCV, Pillow
+- Google Generative AI SDK (Gemini)
+- Docker (optional), Railway-friendly
 
-## 📦 Quick Start
+## 📁 Key Files
 
-### Local Development
+- `server1.py` — Flask app, routes, Gemini validation, Grad‑CAM
+- `templates/NeuroScan.html` — Minimal UI served by Flask
+- `requirements.txt` — Python dependencies
+- `Dockerfile` — Container build
+- `entrypoint.sh` — Downloads model to `MODEL_PATH` if missing, then starts Gunicorn
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
+## ⚙️ Environment Variables
 
-2. **Run development server**
-   ```bash
-   npm run dev
-   ```
+Set these in your deployment platform (e.g., Railway → Variables) or locally (export them in your shell).
 
-3. **Open in browser**
-   Navigate to `http://localhost:3000`
+- `GOOGLE_API_KEY` — Your Gemini API key (required for MRI validation)
+- `GEMINI_MODEL` — Gemini model name. Default: `gemini-1.5-flash` (stable). If you have preview access, you can set `gemini-2.5-flash-preview-05-20`.
+- `MODEL_URL` — HTTPS URL to the `.h5` file (used by entrypoint to auto-download on startup)
+- `MODEL_PATH` — Filesystem path to the `.h5` at runtime (e.g., `/tmp/models/mobilenet_brain_tumor_classifier.h5`)
+- `DATASET_PATH` — Path to dataset root for `/random` (mount a volume in production). Default: `./Dataset`
+- `UPLOAD_FOLDER` — Where uploads are saved temporarily. Default: `Uploads`
+- `PORT` — Server port. Default: `5050`
+- Optional: `TF_CPP_MIN_LOG_LEVEL=2` — Reduce TensorFlow log verbosity
 
-### Build for Production
+## 🧪 Run Locally (no Docker)
+
+1) Create env and install deps
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+2) Make the model available
+- Option A: Point to an existing local model
+```bash
+export MODEL_PATH="/absolute/path/to/mobilenet_brain_tumor_classifier.h5"
+```
+- Option B: Download it manually
+```bash
+mkdir -p /tmp/models
+curl -L "https://github.com/<owner>/<repo>/releases/download/<tag>/mobilenet_brain_tumor_classifier.h5" \
+  -o /tmp/models/mobilenet_brain_tumor_classifier.h5
+export MODEL_PATH="/tmp/models/mobilenet_brain_tumor_classifier.h5"
+```
+
+3) Configure Gemini (optional but recommended)
+```bash
+export GOOGLE_API_KEY="your-google-api-key"
+# Optional if you lack preview access:
+export GEMINI_MODEL="gemini-1.5-flash"
+```
+
+4) Start the app
+```bash
+export PORT=5050
+python server1.py
+# Visit http://localhost:5050
+```
+
+## 🐳 Run with Docker
+
+Build and run the container. The entrypoint will download the model from `MODEL_URL` the first time, then start Gunicorn.
 
 ```bash
-npm run build
+# Build
+docker build -t neuroscan .
+
+# Run (persist model across restarts by mounting a volume at /tmp)
+docker run -p 8080:8080 \
+  -e PORT=8080 \
+  -e GOOGLE_API_KEY="your-google-api-key" \
+  -e GEMINI_MODEL="gemini-1.5-flash" \
+  -e MODEL_URL="https://github.com/<owner>/<repo>/releases/download/<tag>/mobilenet_brain_tumor_classifier.h5" \
+  -e MODEL_PATH="/tmp/models/mobilenet_brain_tumor_classifier.h5" \
+  -v neuroscan-data:/tmp \
+  neuroscan
 ```
 
-This creates an optimized static build in the `out` directory.
+Notes:
+- If deploying on Railway, mount a volume at `/tmp` and set `MODEL_PATH=/tmp/models/...` so the model persists between restarts.
+- The container starts with Gunicorn per `entrypoint.sh`.
 
-## 🌐 Deployment Options
+## 📡 API
 
-### Vercel (Recommended)
+Base URL (live): https://neuroscan.up.railway.app/
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy automatically with zero configuration
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
-### Netlify
-
-1. Build the project: `npm run build`
-2. Deploy the `out` folder to Netlify
-3. Or connect your GitHub repository for automatic deployments
-
-### GitHub Pages
-
-1. Enable GitHub Pages in your repository settings
-2. Set up GitHub Actions for automatic deployment
-3. Use the `out` folder as your publish directory
-
-### Other Static Hosts
-
-The built files in the `out` directory can be deployed to any static hosting service:
-- Firebase Hosting
-- AWS S3 + CloudFront
-- Azure Static Web Apps
-- Surge.sh
-
-## 🔧 Configuration
-
-### Environment Variables
-
-For production deployment with a backend API, create a `.env.local` file:
-
-```env
-NEXT_PUBLIC_API_URL=https://your-backend-api.com
+### POST `/predict`
+- Body: multipart/form-data with `file` (JPEG/PNG/BMP)
+- Behavior:
+  - Validates MRI with Gemini (if configured). Non‑MRI → returns a synthetic “not_mri” class.
+  - Otherwise runs the local TensorFlow model
+- Response (example):
+```json
+{
+  "class": "Glioma",
+  "confidence": 0.93,
+  "classes": [
+    {"label": "Glioma", "percent": 93.0},
+    {"label": "Meningioma", "percent": 5.2},
+    {"label": "Pituitary", "percent": 1.7},
+    {"label": "Notumor", "percent": 0.1},
+    {"label": "Not mri", "percent": 0.0}
+  ],
+  "gemini": {
+    "used": true,
+    "raw": "YES_MRI"
+  }
+}
 ```
 
-### Backend Integration
-
-To connect with the original Flask backend:
-
-1. Update the API endpoints in the components
-2. Replace mock data with actual API calls
-3. Handle CORS configuration on your backend
-
-Example API integration:
-
-```typescript
-const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/predict`, {
-  method: 'POST',
-  body: formData,
-})
-const result = await response.json()
+cURL example:
+```bash
+curl -F "file=@/path/to/non_mri.jpg" https://neuroscan.up.railway.app/predict
 ```
 
-## 📱 Features
+### POST `/heatmap`
+- Body: multipart/form-data with `file`
+- Validates MRI with Gemini, then returns a Grad‑CAM heatmap as base64 PNG.
+- Response:
+```json
+{ "heatmap": "<base64-encoded-png>" }
+```
 
-### Image Upload
-- Drag and drop interface
-- File validation (JPEG, PNG, BMP)
-- Size limits (16MB max)
-- Preview functionality
+cURL example:
+```bash
+curl -F "file=@/path/to/brain_mri.jpg" https://neuroscan.up.railway.app/heatmap
+```
 
-### Results Display
-- Confidence scoring
-- Probability breakdown
-- Medical information
-- Visual progress bars
+### GET `/random`
+- Picks a random image from `DATASET_PATH/{Training|Testing}/{glioma|meningioma|notumor|pituitary}`
+- Does NOT call Gemini (dataset is assumed valid)
+- Response:
+```json
+{
+  "class": "Meningioma",
+  "confidence": 0.88,
+  "classes": [ ... ],
+  "image": "<base64-encoded-image>",
+  "gemini": {"used": false, "raw": null}
+}
+```
 
-### Grad-CAM Visualization
-- Heatmap generation
-- Interactive controls
-- Educational explanations
+### GET `/`
+- Serves `templates/NeuroScan.html` simple UI
+- Live: https://neuroscan.up.railway.app/
 
-## 🎨 Customization
+## 🔍 Logs and Troubleshooting
 
-### Styling
-- Modify `tailwind.config.js` for theme customization
-- Update colors, fonts, and spacing in the config
-- Custom CSS in `src/app/globals.css`
+- “Gemini API configured successfully. model=…” → key loaded
+- Per request you should see: “Gemini raw response text: 'YES_MRI'” or “'NO_MRI'”
+- TensorFlow CUDA/TRT warnings are harmless on CPU-only hosts
+- If you see “Model missing”:
+  - Confirm `MODEL_PATH` equals the actual downloaded path
+  - If using the entrypoint, ensure `MODEL_URL` is set and the container can reach it
+  - On Railway, mount a volume at `/tmp` before downloading so the file persists
 
-### Content
-- Update medical information in `ResultsDisplay.tsx`
-- Modify feature descriptions in the main page
-- Customize disclaimer and footer content
+## 🔒 Security & Disclaimer
 
-## 📊 Performance
-
-- **Lighthouse Score**: 95+ across all metrics
-- **Bundle Size**: Optimized with Next.js automatic splitting
-- **Loading Speed**: Static generation for instant page loads
-- **SEO**: Built-in meta tags and structured data
-
-## 🔒 Security
-
-- Client-side file validation
-- Secure file handling
-- No sensitive data exposure
-- HTTPS-ready configuration
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+- This tool is for research and educational purposes only and must not be used for medical diagnosis.
+- Always consult qualified medical professionals for medical advice and diagnosis.
 
 ## 📄 License
 
-MIT License - see the original project for details.
+MIT License — see [LICENSE](LICENSE).
 
 ## 🙏 Acknowledgments
 
 - Original NeuroScan project by Yash Naidu
-- Next.js team for the amazing framework
-- Tailwind CSS for the utility-first styling
-- Lucide for the beautiful icons
+- Google Gemini, TensorFlow, Flask communities
 
-## 📞 Support
+## 🧩 Frontend (Optional)
 
-- **Issues**: GitHub Issues
-- **Discussions**: GitHub Discussions
-- **Original Project**: [NeuroScan Repository](https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification)
-
----
-
-**Made with ❤️ for Medical AI Research**
+If you want a richer frontend, you can connect a Next.js app to this backend via the documented API:
+- Set `NEXT_PUBLIC_API_URL` to your deployed backend URL
+- POST uploads to `${NEXT_PUBLIC_API_URL}/predict` and `/heatmap`
+- Consider CORS and file size limits
