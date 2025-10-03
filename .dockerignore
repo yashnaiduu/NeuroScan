@@ -1,6 +1,8 @@
-# Everything not needed at runtime
+# Git
 .git
 .gitignore
+
+# Docs/licenses (not needed in build context)
 README.md
 LICENSE
 
@@ -13,7 +15,7 @@ __pycache__/
 env/
 venv/
 
-# Datasets/models (we download at startup or mount volumes)
+# Datasets/models (download at startup or mount volumes)
 Dataset/
 Rand_dataset/
 *.h5
@@ -27,7 +29,7 @@ tmp/
 temp/
 *.log
 
-# Frontend (if not used)
+# Frontend (remove if you keep Next.js)
 node_modules/
 .next/
 dist/
