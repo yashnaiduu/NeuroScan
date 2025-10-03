@@ -1,4 +1,3 @@
-```python name=server1.py url=https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/blob/e1b6101b3bbaecfd13a4c2795d211c9387533ec9/server1.py
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
@@ -364,4 +363,3 @@ if __name__ == '__main__':
     initialize_grad_model()
     port = int(os.environ.get("PORT", 5050))
     app.run(debug=False, host='0.0.0.0', port=port)
-```
