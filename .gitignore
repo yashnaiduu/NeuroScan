@@ -11,7 +11,7 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Datasets and models (tracked via volumes or downloaded at runtime)
+# Datasets and models
 Dataset/
 Rand_dataset/
 *.h5
@@ -25,12 +25,12 @@ tmp/
 temp/
 *.log
 
-# Node/Next (if you ever re-add frontend)
+# Node/Next (if re-added later)
 node_modules/
 .next/
 dist/
 
-# Videos or large media
+# Large media
 *.mp4
 *.avi
 *.mov
