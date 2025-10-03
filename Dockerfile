@@ -31,5 +31,6 @@ RUN mkdir -p Uploads
 # Expose port
 EXPOSE 5050
 
-# Run the application
-CMD ["python", "server1.py"] 
+# Run the application with gunicorn for production
+# Railway will set the PORT environment variable
+CMD gunicorn --bind 0.0.0.0:${PORT:-5050} --timeout 120 server1:app 
