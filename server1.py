@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 import cv2
 import numpy as np
 import tensorflow as tf
@@ -17,6 +18,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER', 'Uploads')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'bmp'}
@@ -33,9 +35,14 @@ DATASET_SUBFOLDERS = ['Training', 'Testing']
 # Configure Gemini API
 # The API key is read from the GOOGLE_API_KEY environment variable
 try:
-    genai.configure(api_key='Add Your Own APi Key')
-    gemini_vision_model = genai.GenerativeModel('gemini-2.5-flash-preview-05-20')
-    logger.info("Gemini API configured successfully.")
+    api_key = os.getenv('GOOGLE_API_KEY')
+    if api_key:
+        genai.configure(api_key=api_key)
+        gemini_vision_model = genai.GenerativeModel('gemini-2.5-flash-preview-05-20')
+        logger.info("Gemini API configured successfully.")
+    else:
+        logger.warning("GOOGLE_API_KEY environment variable not set. Gemini API will not be available.")
+        gemini_vision_model = None
 except Exception as e:
     logger.error(f"Failed to configure Gemini API: {str(e)}")
     gemini_vision_model = None # Indicate that Gemini is not available
