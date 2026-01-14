@@ -7,9 +7,9 @@ Drop a ✨ if you are here. It would mean a lot : )
 ## 🎬 Preview
 
 <div align="center">
-    <video src="preview.mp4" controls="controls" style="max-width: 100%; border-radius: 10px;"></video>
+    <img src="preview.gif" alt="NeuroScan Demo" style="max-width: 100%; border-radius: 10px;">
     <br>
-    <em>Click the play button to watch the demo video</em>
+    <em>Click the image to view the details</em>
 </div>
 
 ## 🚀 Features
