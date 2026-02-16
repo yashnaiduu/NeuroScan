@@ -95,22 +95,27 @@ Drop a ✨ if you are here. It would mean a lot : )
 
 4. **Set up environment variables**
    
-   **For Gemini API (Optional but Recommended):**
+   Create a `.env` file from the example:
    ```bash
-   # Get your API key from: https://makersuite.google.com/app/apikey
-   export GOOGLE_API_KEY=your_gemini_api_key_here
+   cp .env.example .env
    ```
    
-   **For Windows:**
-   ```cmd
-   set GOOGLE_API_KEY=your_gemini_api_key_here
+   Edit `.env` and configure:
+   ```bash
+   # Required for MRI validation (recommended)
+   GOOGLE_API_KEY=your_gemini_api_key_here
+   
+   # Required if model file not present locally
+   MODEL_URL=https://your-storage/mobilenet_brain_tumor_classifier.h5
+   
+   # Optional - defaults provided
+   PORT=5050
+   FLASK_ENV=development
    ```
    
-   **Note:** The Gemini API is used to validate if uploaded images are actually brain MRI scans. If you don't set the API key, the system will still work but won't validate image authenticity.
-   ```bash
-   # Create .env file (optional)
-   echo "GOOGLE_API_KEY=your_gemini_api_key_here" > .env
-   ```
+   **Get Gemini API Key:** [Google AI Studio](https://makersuite.google.com/app/apikey)
+   
+   ⚠️ **Security Note:** Never commit `.env` file to version control. It's already in `.gitignore`.
 
 5. **Run the application**
    ```bash
@@ -120,7 +125,7 @@ Drop a ✨ if you are here. It would mean a lot : )
 6. **Access the application**
    Open your browser and navigate to `http://localhost:5050`
 
-### Docker Deployment
+### Docker Deployment (Local)
 
 1. **Build the Docker image**
    ```bash
@@ -129,8 +134,31 @@ Drop a ✨ if you are here. It would mean a lot : )
 
 2. **Run the container**
    ```bash
-   docker run -p 5050:5050 neuroscan
+   docker run -d \
+     --name neuroscan \
+     -p 5050:5050 \
+     -e GOOGLE_API_KEY=your_api_key \
+     -e MODEL_URL=https://your-storage/model.h5 \
+     neuroscan
    ```
+
+3. **Check health**
+   ```bash
+   curl http://localhost:5050/health
+   ```
+
+### Production Deployment
+
+For production deployment to cloud platforms (Railway, Render, AWS, GCP), see the comprehensive [DEPLOYMENT.md](DEPLOYMENT.md) guide.
+
+**Quick Links:**
+- [Environment Configuration](DEPLOYMENT.md#environment-configuration)
+- [Railway Deployment](DEPLOYMENT.md#railway)
+- [Render Deployment](DEPLOYMENT.md#render)
+- [AWS ECS Deployment](DEPLOYMENT.md#aws-elastic-container-service)
+- [GCP Cloud Run Deployment](DEPLOYMENT.md#google-cloud-platform-cloud-run)
+- [SSL/TLS Setup](DEPLOYMENT.md#ssltls-configuration)
+- [Monitoring & Logging](DEPLOYMENT.md#monitoring-and-logging)
 
 ## 🎮 Usage
 

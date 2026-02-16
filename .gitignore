@@ -11,8 +11,16 @@ venv/
 .DS_Store
 Thumbs.db
 
+# Environment and secrets
+.env
+email_config.py
+*.key
+*.pem
+
 # Datasets and models
+Dataset
 Dataset/
+cache/
 Rand_dataset/
 *.h5
 *.hdf5
@@ -34,3 +42,10 @@ dist/
 *.mp4
 *.avi
 *.mov
+
+# Test coverage
+htmlcov/
+.coverage
+.pytest_cache/
+*.cover
+
