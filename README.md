@@ -4,7 +4,7 @@ NeuroScan is a deep learning-based application for classifying brain tumors from
 
 ## Preview
 
-![NeuroScan Preview](preview.gif)
+![NeuroScan Preview](preview_small.gif)
 
 ## Features
 
@@ -18,27 +18,29 @@ NeuroScan is a deep learning-based application for classifying brain tumors from
 ## System Architecture
 
 ```mermaid
-flowchart TD
+graph TD
     %% Nodes
-    Input([Input Image\n224x224 RGB])
+    Input("Input Image
+    224x224 RGB")
     
-    subgraph MobileNetV2 [MobileNetV2 Feature Extractor]
-        direction TB
-        Conv1([Conv2D\n32 filters])
-        
-        subgraph Block [Inverted Residual Blocks]
-            direction TB
-            Exp([Expansion\n1x1 Conv])
-            DW([Depthwise Conv\n3x3])
-            Proj([Projection\n1x1 Conv])
-        end
+    subgraph MobileNetV2 ["MobileNetV2 Feature Extractor"]
+        Conv1("Conv2D
+        32 filters")
+        Exp("Expansion
+        1x1 Conv")
+        DW("Depthwise Conv
+        3x3")
+        Proj("Projection
+        1x1 Conv")
     end
 
-    GAP([Global Average Pooling])
-    Dropout([Dropout 0.5])
-    Dense([Dense Output\n4 Units])
-    Softmax([Softmax Activation])
-    Output([Probabilities\n4 Classes])
+    GAP("Global Average Pooling")
+    Dropout("Dropout 0.5")
+    Dense("Dense Output
+    4 Units")
+    Softmax("Softmax Activation")
+    Output("Probabilities
+    4 Classes")
 
     %% Connections
     Input --> Conv1
@@ -53,7 +55,6 @@ flowchart TD
     Softmax --> Output
 
     %% Styling
-    style Block fill:#f9f9f9,stroke:#333,stroke-width:1px,rx:10,ry:10
     style MobileNetV2 fill:#fff,stroke:#333,stroke-width:1px,rx:10,ry:10
 ```
 
