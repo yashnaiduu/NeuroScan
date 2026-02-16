@@ -4,7 +4,7 @@ NeuroScan is a deep learning-based application for classifying brain tumors from
 
 ## Preview
 
-![NeuroScan Demo](demo.mov)
+![NeuroScan Preview](preview.gif)
 
 ## Features
 
@@ -21,48 +21,33 @@ The core of NeuroScan is built upon **MobileNetV2**, a lightweight convolutional
 
 ```mermaid
 graph TD
-    %% Define Styles
-    classDef input fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
-    classDef block fill:#fff3e0,stroke:#e65100,stroke-width:2px;
-    classDef layer fill:#f3e5f5,stroke:#4a148c,stroke-width:2px;
-    classDef output fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px;
-
-    %% Nodes
-    Input["Input Image (224x224x3)"]:::input
+    %% Nodes with rounded edges
+    Input("Input Image\n(224x224 RGB)")
     
-    subgraph Backbone ["MobileNetV2 Feature Extractor"]
+    subgraph MobileNetV2 ["MobileNetV2 Feature Extractor"]
         direction TB
-        Conv1["Conv2D (32 filters)"]:::layer
+        Conv1("Conv2D\n(32 filters)")
         
-        subgraph Block1 ["Inverted Residual Block 1"]
-            Exp1["Expansion (1x1 Conv)"]:::block
-            DW1["Depthwise Conv (3x3)"]:::block
-            Proj1["Projection (1x1 Conv)"]:::block
-        end
-        
-        subgraph BlockN ["Repeating Residual Blocks (x16)"]
-            ExpN["Expansion"]:::block
-            DWN["Depthwise Conv"]:::block
-            ProjN["Projection"]:::block
+        subgraph Blocks ["Inverted Residual Blocks"]
+            direction TB
+            Expansion("Expansion\n(1x1 Conv)")
+            Depthwise("Depthwise Conv\n(3x3)")
+            Projection("Projection\n(1x1 Conv)")
         end
     end
 
-    GAP["Global Average Pooling"]:::layer
-    Dropout["Dropout (0.5)"]:::layer
-    Dense["Dense (4 Units)"]:::layer
-    Softmax["Softmax Activation"]:::layer
-    Output["Probabilities (Glioma, Meningioma, Pituitary, No Tumor)"]:::output
+    GAP("Global Average Pooling")
+    Dropout("Dropout (0.5)")
+    Dense("Dense Output\n(4 Units)")
+    Softmax("Softmax Activation")
+    Output("Probabilities\n(4 Classes)")
 
-    %% Connections
+    %% Clean Connections
     Input --> Conv1
-    Conv1 --> Exp1
-    Exp1 --> DW1
-    DW1 --> Proj1
-    Proj1 -.-> ExpN
-    
-    ExpN --> DWN
-    DWN --> ProjN
-    ProjN --> GAP
+    Conv1 --> Expansion
+    Expansion --> Depthwise
+    Depthwise --> Projection
+    Projection --> GAP
     
     GAP --> Dropout
     Dropout --> Dense
