@@ -4,9 +4,7 @@ NeuroScan is a deep learning-based application for classifying brain tumors from
 
 ## Preview
 
-<div align="center">
-  <video src="demo.mov" width="100%" controls autoplay loop muted></video>
-</div>
+![NeuroScan Demo](demo.mov)
 
 ## Features
 
@@ -23,13 +21,13 @@ The core of NeuroScan is built upon **MobileNetV2**, a lightweight convolutional
 
 ```mermaid
 graph TD
-    Input[Input Image (224x224 RGB)] --> Mobilenet[MobileNetV2 Body]
+    Input["Input Image (224x224 RGB)"] --> Mobilenet[MobileNetV2 Body]
     Mobilenet --> |Feature Extraction| Conv[Conv2D Layer]
     Conv --> GAP[Global Average Pooling]
-    GAP --> Dropout[Dropout (0.5)]
+    GAP --> Dropout["Dropout (0.5)"]
     Dropout --> Dense[Dense Output Layer]
     Dense --> Softmax[Softmax Activation]
-    Softmax --> Output[Probabilities (4 Classes)]
+    Softmax --> Output["Probabilities (4 Classes)"]
     
     subgraph MobileNetV2
         Mobilenet
