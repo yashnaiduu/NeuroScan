@@ -4,7 +4,9 @@ NeuroScan is a deep learning-based application for classifying brain tumors from
 
 ## Preview
 
-![NeuroScan Preview](preview_small.gif)
+<div align="center">
+  <img src="preview.gif" width="100%" alt="NeuroScan Preview" />
+</div>
 
 ## Features
 
