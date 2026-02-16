@@ -20,34 +20,30 @@ NeuroScan is a deep learning-based application for classifying brain tumors from
 The core of NeuroScan is built upon **MobileNetV2**, a lightweight convolutional neural network optimized for efficiency and speed.
 
 ```mermaid
-graph TD
-    %% Nodes with rounded edges
-    Input("Input Image\n(224x224 RGB)")
+flowchart TD
+    %% Nodes
+    Input([Input Image\n224x224 RGB])
+    Conv1([Conv2D\n32 filters])
     
-    subgraph MobileNetV2 ["MobileNetV2 Feature Extractor"]
+    subgraph Block [Inverted Residual Blocks]
         direction TB
-        Conv1("Conv2D\n(32 filters)")
-        
-        subgraph Blocks ["Inverted Residual Blocks"]
-            direction TB
-            Expansion("Expansion\n(1x1 Conv)")
-            Depthwise("Depthwise Conv\n(3x3)")
-            Projection("Projection\n(1x1 Conv)")
-        end
+        Exp([Expansion\n1x1 Conv])
+        DW([Depthwise Conv\n3x3])
+        Proj([Projection\n1x1 Conv])
     end
 
-    GAP("Global Average Pooling")
-    Dropout("Dropout (0.5)")
-    Dense("Dense Output\n(4 Units)")
-    Softmax("Softmax Activation")
-    Output("Probabilities\n(4 Classes)")
+    GAP([Global Average Pooling])
+    Dropout([Dropout 0.5])
+    Dense([Dense Output\n4 Units])
+    Softmax([Softmax Activation])
+    Output([Probabilities\n4 Classes])
 
-    %% Clean Connections
+    %% Connections
     Input --> Conv1
-    Conv1 --> Expansion
-    Expansion --> Depthwise
-    Depthwise --> Projection
-    Projection --> GAP
+    Conv1 --> Exp
+    Exp --> DW
+    DW --> Proj
+    Proj --> GAP
     
     GAP --> Dropout
     Dropout --> Dense
