@@ -2,6 +2,10 @@
 
 NeuroScan is a deep learning-based application for classifying brain tumors from MRI scans. It utilizes a fine-tuned MobileNetV2 architecture with transfer learning to detect and classify Gliomas, Meningiomas, Pituitary tumors, and normal brain scans with high confidence.
 
+## Preview
+
+![NeuroScan Preview](preview.gif)
+
 ## Features
 
 - **Multi-Class Classification**: Identifies Glioma, Meningioma, Pituitary, and No Tumor cases
@@ -10,6 +14,19 @@ NeuroScan is a deep learning-based application for classifying brain tumors from
 - **Grad-CAM Visualization**: Generates heatmaps to highlight brain regions influencing the AI's decision
 - **Performance Analytics**: Real-time confidence scores and detailed probability analysis
 - **Modern Interface**: Responsive web interface with dark mode and smooth transitions
+
+## System Architecture
+
+The core of NeuroScan is built upon **MobileNetV2**, a lightweight convolutional neural network optimized for efficiency and speed.
+
+- **Base Model**: MobileNetV2 (pre-trained on ImageNet)
+- **Input Layer**: Accepts 224x224 RGB images
+- **Feature Extraction**: Depthwise separable convolutions to extract high-level features
+- **Global Average Pooling**: Reduces spatial dimensions
+- **Dropout Layer**: Rate of 0.5 to prevent overfitting
+- **Output Layer**: Dense layer with Softmax activation for 4-class probability distribution
+
+This architecture ensures rapid inference times (<2s on CPU) while maintaining high accuracy (96.8% on test set).
 
 ## Dataset
 
