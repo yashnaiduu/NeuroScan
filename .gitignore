@@ -6,16 +6,32 @@ __pycache__/
 .venv/
 env/
 venv/
+ENV/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints
 
 # OS junk
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
 # Environment and secrets
 .env
+.env.local
+.env.*.local
 email_config.py
 *.key
 *.pem
+*.secret
 
 # Datasets and models
 Dataset
@@ -26,6 +42,7 @@ Rand_dataset/
 *.hdf5
 *.ckpt
 *.onnx
+*.weights
 
 # Uploads/temp
 Uploads/
@@ -33,7 +50,13 @@ tmp/
 temp/
 *.log
 
-# Node/Next (if re-added later)
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Web
 node_modules/
 .next/
 dist/
