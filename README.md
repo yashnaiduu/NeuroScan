@@ -17,19 +17,21 @@ NeuroScan is a deep learning-based application for classifying brain tumors from
 
 ## System Architecture
 
-The core of NeuroScan is built upon **MobileNetV2**, a lightweight convolutional neural network optimized for efficiency and speed.
-
 ```mermaid
 flowchart TD
     %% Nodes
     Input([Input Image\n224x224 RGB])
-    Conv1([Conv2D\n32 filters])
     
-    subgraph Block [Inverted Residual Blocks]
+    subgraph MobileNetV2 [MobileNetV2 Feature Extractor]
         direction TB
-        Exp([Expansion\n1x1 Conv])
-        DW([Depthwise Conv\n3x3])
-        Proj([Projection\n1x1 Conv])
+        Conv1([Conv2D\n32 filters])
+        
+        subgraph Block [Inverted Residual Blocks]
+            direction TB
+            Exp([Expansion\n1x1 Conv])
+            DW([Depthwise Conv\n3x3])
+            Proj([Projection\n1x1 Conv])
+        end
     end
 
     GAP([Global Average Pooling])
@@ -49,6 +51,10 @@ flowchart TD
     Dropout --> Dense
     Dense --> Softmax
     Softmax --> Output
+
+    %% Styling
+    style Block fill:#f9f9f9,stroke:#333,stroke-width:1px,rx:10,ry:10
+    style MobileNetV2 fill:#fff,stroke:#333,stroke-width:1px,rx:10,ry:10
 ```
 
 - **Base Model**: MobileNetV2 (pre-trained on ImageNet)
