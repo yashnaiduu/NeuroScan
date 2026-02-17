@@ -10,6 +10,7 @@
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&family=Lora:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="env.js"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         :root {
@@ -2704,8 +2705,8 @@
         // Create grid lines
         const gridLines = document.querySelector('.grid-lines');
 
-        // configuration for backend
-        const API_URL = "https://yashnaiduu-neurosacn.hf.space"; // Production URL
+        // Configuration for backend - Set VITE_API_URL in Vercel environment variables
+        const API_URL = window.ENV?.API_URL || ""; // Will be injected by Vercel
 
         // Create horizontal grid lines
         for (let i = 1; i <= 10; i++) {
