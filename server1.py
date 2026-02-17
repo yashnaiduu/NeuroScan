@@ -13,6 +13,16 @@ from PIL import Image
 from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
+from flask_cors import CORS
+
+# Try importing transformers for CLIP
+try:
+    from transformers import CLIPProcessor, CLIPModel
+    import torch
+    CLIP_AVAILABLE = True
+except ImportError as e:
+    CLIP_AVAILABLE = False
+    print(f"Transformers/Torch not found. CLIP validation will be disabled. Error: {e}")
 
 try:
     import google.generativeai as genai
@@ -33,6 +43,7 @@ logger = logging.getLogger(__name__)
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Configuration
 app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER', 'Uploads')
@@ -56,6 +67,8 @@ DATASET_SUBFOLDERS = ['Training', 'Testing']
 model = None
 gemini_vision_model = None
 grad_model = None
+clip_model = None
+clip_processor = None
 app_start_time = time.time()
 
 # Configure Gemini API
@@ -92,11 +105,55 @@ def load_classification_model() -> None:
         return
     
     try:
-        model = tf.keras.models.load_model(model_path)
+        # Fix for DepthwiseConv2D groups argument issue in newer/older Keras versions
+        class CustomDepthwiseConv2D(tf.keras.layers.DepthwiseConv2D):
+            def __init__(self, **kwargs):
+                kwargs.pop('groups', None)  # Remove incompatible argument
+                super().__init__(**kwargs)
+
+        model = tf.keras.models.load_model(model_path, custom_objects={'DepthwiseConv2D': CustomDepthwiseConv2D})
         logger.info(f"Brain tumor classification model loaded successfully from {model_path}")
     except Exception as e:
         logger.error(f"Failed to load classification model: {str(e)}")
         raise
+
+# Load CLIP model
+def load_clip_model() -> None:
+    """Load the CLIP model for zero-shot validation."""
+    global clip_model, clip_processor
+    
+    if not CLIP_AVAILABLE:
+        logger.info("CLIP dependencies not available. Skipping CLIP validation.")
+        return
+        
+    try:
+        logger.info("Loading CLIP model for validation (this may take a moment)...")
+        # Set a timeout for model loading to prevent hanging
+        import signal
+        
+        def timeout_handler(signum, frame):
+            raise TimeoutError("CLIP model loading timed out")
+        
+        # Only set alarm on Unix systems
+        if hasattr(signal, 'SIGALRM'):
+            signal.signal(signal.SIGALRM, timeout_handler)
+            signal.alarm(30)  # 30 second timeout
+        
+        clip_model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
+        clip_processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+        
+        if hasattr(signal, 'SIGALRM'):
+            signal.alarm(0)  # Cancel the alarm
+            
+        logger.info("CLIP model loaded successfully.")
+    except TimeoutError as e:
+        logger.warning(f"CLIP model loading timed out. Continuing without CLIP validation. Error: {str(e)}")
+        clip_model = None
+        clip_processor = None
+    except Exception as e:
+        logger.warning(f"Failed to load CLIP model. Continuing without CLIP validation. Error: {str(e)}")
+        clip_model = None
+        clip_processor = None
 
 # Initialize Grad-CAM model
 def initialize_grad_model() -> None:
@@ -187,17 +244,66 @@ def format_classification_results(predictions: np.ndarray, class_names: list) ->
     ]
     return sorted(classes, key=lambda x: x['percent'], reverse=True)
 
-# Gemini validation function
-def check_if_mri_with_gemini(image_bytes: bytes) -> Dict[str, Any]:
+# CLIP validation function
+def verify_mri_with_clip(image_path: str) -> Dict[str, Any]:
     """
-    Use Gemini Vision API to check if the image is a brain MRI.
-    Returns dict with 'used', 'is_mri', and 'raw' keys.
+    Use CLIP to verify if the image is a brain MRI scan.
     """
+    if not clip_model or not clip_processor:
+        logger.warning("CLIP model not loaded. Skipping validation.")
+        return {'used': False, 'is_mri': True, 'confidence': 0.0}
+    
+    try:
+        image = Image.open(image_path)
+        
+        # Define prompts
+        labels = ["a brain mri scan", "a medical x-ray", "a random photo", "an animal", "a person", "a car", "text document"]
+        
+        inputs = clip_processor(text=labels, images=image, return_tensors="pt", padding=True)
+        outputs = clip_model(**inputs)
+        
+        # Get probabilities
+        logits_per_image = outputs.logits_per_image
+        probs = logits_per_image.softmax(dim=1).detach().numpy()[0]
+        
+        # Get score for "brain mri scan" (index 0) and "medical x-ray" (index 1)
+        mri_score = probs[0]
+        medical_score = probs[0] + probs[1]
+        
+        logger.info(f"CLIP Validation: MRI Score = {mri_score:.4f}, Medical Score = {medical_score:.4f}")
+        
+        is_mri = medical_score > 0.4  # Threshold
+        
+        return {
+            'used': True, 
+            'is_mri': bool(is_mri), 
+            'confidence': float(mri_score),
+            'raw': {l: float(p) for l, p in zip(labels, probs)}
+        }
+        
+    except Exception as e:
+        logger.error(f"CLIP validation failed: {e}")
+        return {'used': False, 'is_mri': True, 'confidence': 0.0}
+
+# Gemini validation function (Deprecated/Fallback)
+def check_if_mri_with_gemini(filepath: str) -> Dict[str, Any]:
+    """
+    Wrapper to use CLIP instead of Gemini.
+    """
+    # Prefer CLIP if available
+    if clip_model:
+        return verify_mri_with_clip(filepath)
+        
+    # Fallback to Gemini if configured (legacy)
     if not gemini_vision_model:
-        logger.debug("Gemini API not available. Skipping MRI validation.")
+        logger.debug("Gemini/CLIP not available. Skipping validation.")
         return {'used': False, 'is_mri': True, 'raw': None}
     
     try:
+        # Load image bytes for Gemini
+        with open(filepath, "rb") as f:
+            image_bytes = f.read()
+            
         image_pil = Image.open(io.BytesIO(image_bytes))
         prompt = (
             "Analyze this image. Is it a medical image, specifically a brain MRI scan of a human? "
@@ -289,8 +395,20 @@ def generate_gradcam(img_array: np.ndarray, class_index: int) -> np.ndarray:
 # Routes
 @app.route('/')
 def home():
-    """Render the main application page."""
-    return render_template('NeuroScan.html')
+    """API information endpoint."""
+    return jsonify({
+        'name': 'NeuroScan API',
+        'version': '1.0.0',
+        'status': 'running',
+        'endpoints': {
+            '/': 'API information',
+            '/health': 'Health check',
+            '/stats': 'System statistics',
+            '/predict': 'Tumor classification (POST)',
+            '/heatmap': 'Grad-CAM heatmap generation (POST)',
+            '/random': 'Random sample image'
+        }
+    })
 
 @app.route('/health', methods=['GET'])
 def health():
@@ -525,6 +643,7 @@ def get_stats():
             'loaded': model is not None
         },
         'gemini_available': gemini_vision_model is not None,
+        'clip_available': clip_model is not None,
         'uptime': round(time.time() - app_start_time, 2)
     }
     return jsonify(stats)
@@ -532,6 +651,7 @@ def get_stats():
 # Initialize on startup
 configure_gemini()
 load_classification_model()
+# load_clip_model()  # Temporarily disabled - causing timeout issues on HF Spaces
 initialize_grad_model()
 
 if __name__ == '__main__':

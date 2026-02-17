@@ -51,11 +51,11 @@ RUN chmod +x entrypoint.sh
 USER appuser
 
 # Expose port
-EXPOSE 5050
+EXPOSE 7860
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD curl -f http://localhost:5050/health || exit 1
+    CMD curl -f http://localhost:7860/health || exit 1
 
 # Run application
 CMD ["sh", "-c", "./entrypoint.sh"]

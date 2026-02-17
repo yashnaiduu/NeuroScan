@@ -4,7 +4,7 @@ set -e
 echo "Starting NeuroScan application..."
 
 # Configuration
-MP="${MODEL_PATH:-/tmp/models/mobilenet_brain_tumor_classifier.h5}"
+MP="${MODEL_PATH:-/app/mobilenet_brain_tumor_classifier.h5}"
 MODEL_DIR="$(dirname "$MP")"
 
 # Check if model file exists
@@ -60,7 +60,7 @@ mkdir -p Uploads cache
 # Configuration
 WEB_CONCURRENCY="${WEB_CONCURRENCY:-2}"
 WEB_THREADS="${WEB_THREADS:-4}"
-PORT="${PORT:-5050}"
+PORT="${PORT:-7860}"
 TIMEOUT="${GUNICORN_TIMEOUT:-120}"
 
 echo "Starting gunicorn with $WEB_CONCURRENCY workers and $WEB_THREADS threads per worker"
