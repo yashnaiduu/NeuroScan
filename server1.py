@@ -128,32 +128,27 @@ def load_clip_model() -> None:
         
     try:
         logger.info("Loading CLIP model for validation (this may take a moment)...")
-        # Set a timeout for model loading to prevent hanging
-        import signal
-        
-        def timeout_handler(signum, frame):
-            raise TimeoutError("CLIP model loading timed out")
-        
-        # Only set alarm on Unix systems
-        if hasattr(signal, 'SIGALRM'):
-            signal.signal(signal.SIGALRM, timeout_handler)
-            signal.alarm(30)  # 30 second timeout
-        
         clip_model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
         clip_processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
-        
-        if hasattr(signal, 'SIGALRM'):
-            signal.alarm(0)  # Cancel the alarm
-            
-        logger.info("CLIP model loaded successfully.")
-    except TimeoutError as e:
-        logger.warning(f"CLIP model loading timed out. Continuing without CLIP validation. Error: {str(e)}")
-        clip_model = None
-        clip_processor = None
+        logger.info("✅ CLIP model loaded successfully.")
     except Exception as e:
         logger.warning(f"Failed to load CLIP model. Continuing without CLIP validation. Error: {str(e)}")
         clip_model = None
         clip_processor = None
+
+def load_clip_model_async() -> None:
+    """Load CLIP model asynchronously in background thread."""
+    import threading
+    
+    def load_in_background():
+        try:
+            load_clip_model()
+        except Exception as e:
+            logger.error(f"Background CLIP loading failed: {str(e)}")
+    
+    thread = threading.Thread(target=load_in_background, daemon=True)
+    thread.start()
+    logger.info("Started CLIP model loading in background...")
 
 # Initialize Grad-CAM model
 def initialize_grad_model() -> None:
@@ -651,7 +646,7 @@ def get_stats():
 # Initialize on startup
 configure_gemini()
 load_classification_model()
-# load_clip_model()  # Temporarily disabled - causing timeout issues on HF Spaces
+load_clip_model_async()  # Load CLIP in background to prevent startup delays
 initialize_grad_model()
 
 if __name__ == '__main__':
