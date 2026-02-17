@@ -1,5 +1,6 @@
 {
-    "buildCommand": "echo 'No build needed'",
+    "buildCommand": "cd client && cp env.js.template env.js && sed -i.bak \"s|%%API_URL%%|${API_URL}|g\" env.js && rm env.js.bak",
     "outputDirectory": "client",
-    "installCommand": "echo 'No install needed'"
+    "installCommand": "echo 'No install needed'",
+    "framework": null
 }
