@@ -521,6 +521,15 @@ def random_prediction():
     if model is None:
         return jsonify({'error': 'Model not loaded'}), 503
     
+    # Check if dataset exists
+    dataset_path = app.config.get('DATASET_PATH', './Dataset')
+    if not os.path.exists(dataset_path):
+        logger.warning(f"Dataset not available at {dataset_path}")
+        return jsonify({
+            'error': 'Random samples not available',
+            'message': 'Dataset not uploaded to this deployment. Please upload your own MRI image instead.'
+        }), 404
+    
     try:
         random_image_path = fetch_random_image_path()
         logger.info(f"Fetching random image: {random_image_path}")
