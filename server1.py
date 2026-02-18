@@ -517,80 +517,58 @@ def predict():
 
 @app.route('/random', methods=['GET'])
 def random_prediction():
-    """Get a random prediction from the Hugging Face dataset."""
+    """Get a random prediction from bundled sample MRI images."""
     if model is None:
         return jsonify({'error': 'Model not loaded'}), 503
-    
+
     try:
-        # Fetch a random image from public HF brain tumor dataset
-        import requests as req
-        import tempfile
+        import json as json_module
 
-        # Use the Sartajbhuvaji brain tumor dataset on HF
-        # Pick a random class and image index
-        tumor_classes = ['glioma_tumor', 'meningioma_tumor', 'no_tumor', 'pituitary_tumor']
-        chosen_class = random.choice(tumor_classes)
-        
-        # Map to our model class names
-        class_name_map = {
-            'glioma_tumor': 'glioma',
-            'meningioma_tumor': 'meningioma',
-            'no_tumor': 'notumor',
-            'pituitary_tumor': 'pituitary'
-        }
+        # Load manifest of sample images bundled with the app
+        manifest_path = os.path.join(os.path.dirname(__file__), 'sample_images', 'manifest.json')
+        if not os.path.exists(manifest_path):
+            return jsonify({'error': 'Sample images not available'}), 404
 
-        # Fetch image list from HF dataset API
-        hf_api_url = f"https://datasets-server.huggingface.co/rows?dataset=Sartajbhuvaji%2FBrain-Tumor-Classification-MRI&config=default&split=Training&offset=0&length=100"
-        api_resp = req.get(hf_api_url, timeout=10)
+        with open(manifest_path) as f:
+            manifest = json_module.load(f)
+
+        # Pick a random class that has images
+        available_classes = [c for c, imgs in manifest.items() if imgs]
+        if not available_classes:
+            return jsonify({'error': 'No sample images found'}), 404
+
+        chosen_class = random.choice(available_classes)
+        random_image_path = random.choice(manifest[chosen_class])
         
-        if api_resp.status_code == 200:
-            rows = api_resp.json().get('rows', [])
-            # Filter rows by chosen class label
-            label_map = {'glioma_tumor': 0, 'meningioma_tumor': 1, 'no_tumor': 2, 'pituitary_tumor': 3}
-            target_label = label_map[chosen_class]
-            matching = [r for r in rows if r.get('row', {}).get('label') == target_label]
-            if not matching:
-                matching = rows  # fallback to any row
-            chosen_row = random.choice(matching)
-            image_url = chosen_row['row']['image']['src']
-            
-            # Download the image
-            img_resp = req.get(image_url, timeout=15)
-            img_resp.raise_for_status()
-            
-            # Save to temp file and process
-            with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as tmp:
-                tmp.write(img_resp.content)
-                tmp_path = tmp.name
-            
-            try:
-                processed_image = preprocess_image(tmp_path)
-                predictions = model.predict(processed_image, verbose=0)[0]
-                full_predictions_for_reporting = np.append(predictions, 1e-6)
-                
-                model_predicted_index = np.argmax(predictions)
-                predicted_class_name = MODEL_CLASS_NAMES[model_predicted_index]
-                confidence_in_model_class = float(predictions[model_predicted_index])
-                classes = format_classification_results(full_predictions_for_reporting, REPORTING_CLASS_NAMES)
-                base64_image = encode_image_to_base64(tmp_path)
-            finally:
-                cleanup_file(tmp_path)
-            
-            if not base64_image:
-                return jsonify({'error': 'Failed to encode image'}), 500
-            
-            return jsonify({
-                'class': predicted_class_name.replace('_', ' ').capitalize(),
-                'confidence': confidence_in_model_class,
-                'classes': classes,
-                'image': base64_image,
-                'gemini': {'used': False, 'raw': None}
-            }), 200
-        else:
-            return jsonify({'error': 'Could not fetch dataset from Hugging Face'}), 503
+        # Make path absolute relative to app directory
+        if not os.path.isabs(random_image_path):
+            random_image_path = os.path.join(os.path.dirname(__file__), random_image_path)
+
+        logger.info(f"Serving random sample: {random_image_path}")
+
+        processed_image = preprocess_image(random_image_path)
+        predictions = model.predict(processed_image, verbose=0)[0]
+        full_predictions_for_reporting = np.append(predictions, 1e-6)
+
+        model_predicted_index = np.argmax(predictions)
+        predicted_class_name = MODEL_CLASS_NAMES[model_predicted_index]
+        confidence_in_model_class = float(predictions[model_predicted_index])
+        classes = format_classification_results(full_predictions_for_reporting, REPORTING_CLASS_NAMES)
+        base64_image = encode_image_to_base64(random_image_path)
+
+        if not base64_image:
+            return jsonify({'error': 'Failed to encode image'}), 500
+
+        return jsonify({
+            'class': predicted_class_name.replace('_', ' ').capitalize(),
+            'confidence': confidence_in_model_class,
+            'classes': classes,
+            'image': base64_image,
+            'gemini': {'used': False, 'raw': None}
+        }), 200
 
     except Exception as e:
-        logger.error(f"Error fetching random sample from HF dataset: {str(e)}", exc_info=True)
+        logger.error(f"Error serving random sample: {str(e)}", exc_info=True)
         return jsonify({'error': f'Error fetching random sample: {str(e)}'}), 500
 
 

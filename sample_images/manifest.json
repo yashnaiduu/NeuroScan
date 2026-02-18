@@ -1,0 +1,19 @@
+{
+  "glioma": [
+    "sample_images/glioma/glioma_1.jpg",
+    "sample_images/glioma/glioma_2.jpg",
+    "sample_images/glioma/glioma_3.jpg"
+  ],
+  "meningioma": [
+    "sample_images/meningioma/meningioma_2.jpg",
+    "sample_images/meningioma/meningioma_3.jpg"
+  ],
+  "notumor": [
+    "sample_images/notumor/notumor_placeholder.jpg"
+  ],
+  "pituitary": [
+    "sample_images/pituitary/pituitary_1.jpg",
+    "sample_images/pituitary/pituitary_2.jpg",
+    "sample_images/pituitary/pituitary_3.jpg"
+  ]
+}
