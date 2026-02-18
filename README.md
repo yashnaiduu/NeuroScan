@@ -48,27 +48,20 @@ NeuroScan is a full-stack medical imaging web application that classifies brain 
 
 ```mermaid
 graph TD
-    Input("Input Image
-    224x224 RGB")
+    Input["Input Image (224x224 RGB)"]
 
-    subgraph MobileNetV2 ["MobileNetV2 Feature Extractor"]
-        Conv1("Conv2D
-        32 filters")
-        Exp("Expansion
-        1x1 Conv")
-        DW("Depthwise Conv
-        3x3")
-        Proj("Projection
-        1x1 Conv")
+    subgraph MobileNetV2["MobileNetV2 Feature Extractor"]
+        Conv1["Conv2D (32 filters)"]
+        Exp["Expansion (1x1 Conv)"]
+        DW["Depthwise Conv (3x3)"]
+        Proj["Projection (1x1 Conv)"]
     end
 
-    GAP("Global Average Pooling")
-    Dropout("Dropout 0.5")
-    Dense("Dense Output
-    4 Units")
-    Softmax("Softmax Activation")
-    Output("Probabilities
-    4 Classes")
+    GAP["Global Average Pooling"]
+    Dropout["Dropout (0.5)"]
+    Dense["Dense Output (4 Units)"]
+    Softmax["Softmax Activation"]
+    Output["Probabilities (4 Classes)"]
 
     Input --> Conv1
     Conv1 --> Exp
@@ -80,7 +73,7 @@ graph TD
     Dense --> Softmax
     Softmax --> Output
 
-    style MobileNetV2 fill:#fff,stroke:#333,stroke-width:1px
+    style MobileNetV2 fill:#1a1a2e,stroke:#444,stroke-width:1px,color:#fff
 ```
 
 | Layer | Details |
