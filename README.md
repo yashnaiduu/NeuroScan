@@ -24,7 +24,7 @@
 </p>
 
 <p align="center">
-  <a href="https://neuro-scan-brain-tumor-classification.vercel.app">
+  <a href="https://neuroscan.vercel.app">
     <img src="https://img.shields.io/badge/-Live%20Demo-00F7FF?style=for-the-badge&logoColor=black" />
   </a>
   &nbsp;
