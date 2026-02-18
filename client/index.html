@@ -2667,37 +2667,41 @@
         </div>
     </footer>
 
-    <!-- Contact Form Modal -->
+    <!-- Contact Info Modal -->
     <div class="contact-modal-overlay" id="contactModalOverlay">
-        <div class="contact-modal-content">
+        <div class="contact-modal-content" style="max-width: 380px;">
             <div class="contact-modal-header">
-                <h3>Contact Us</h3>
+                <h3>Contact</h3>
                 <button class="contact-modal-close" id="contactModalClose">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <form class="contact-form" id="contactForm">
-                <div class="form-group">
-                    <label for="contactName">Name</label>
-                    <input type="text" id="contactName" name="name" required>
+            <div style="padding: var(--spacing-lg); display: flex; flex-direction: column; gap: var(--spacing-md);">
+                <div
+                    style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); background: var(--background); border-radius: var(--radius); border: 1px solid var(--border);">
+                    <div
+                        style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #7c3aed); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i class="fas fa-user" style="color: #000; font-size: 0.9rem;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--muted-foreground); margin-bottom: 2px;">Developer
+                        </div>
+                        <div style="font-weight: 600; color: var(--foreground);">Yash Naidu</div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="contactEmail">Email</label>
-                    <input type="email" id="contactEmail" name="email" required>
+                <div
+                    style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); background: var(--background); border-radius: var(--radius); border: 1px solid var(--border);">
+                    <div
+                        style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #7c3aed); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i class="fas fa-envelope" style="color: #000; font-size: 0.9rem;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--muted-foreground); margin-bottom: 2px;">Email</div>
+                        <a href="mailto:yash.22bce8038@vitapstudent.ac.in"
+                            style="font-weight: 600; color: var(--primary); text-decoration: none;">yash.22bce8038@vitapstudent.ac.in</a>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="contactSubject">Subject</label>
-                    <input type="text" id="contactSubject" name="subject" required>
-                </div>
-                <div class="form-group">
-                    <label for="contactMessage">Message</label>
-                    <textarea id="contactMessage" name="message" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-paper-plane"></i>
-                    Send Message
-                </button>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -2762,7 +2766,6 @@
         const contactLink = document.getElementById('contact-link');
         const contactModalOverlay = document.getElementById('contactModalOverlay');
         const contactModalClose = document.getElementById('contactModalClose');
-        const contactForm = document.getElementById('contactForm');
 
         // Set current year in footer
         currentYearElement.textContent = new Date().getFullYear();
@@ -3528,7 +3531,7 @@
         // Reset button click handler
         resetBtn.addEventListener('click', resetApplication);
 
-        // Contact form functionality
+        // Contact modal functionality
         contactLink.addEventListener('click', (e) => {
             e.preventDefault();
             contactModalOverlay.classList.add('show');
@@ -3542,25 +3545,6 @@
             if (e.target === contactModalOverlay) {
                 contactModalOverlay.classList.remove('show');
             }
-        });
-
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const formData = new FormData(contactForm);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
-
-            // Open default email client with pre-filled info
-            const mailtoLink = `mailto:yashnnaidu@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
-
-            window.location.href = mailtoLink;
-
-            // Reset form and close modal
-            contactForm.reset();
-            contactModalOverlay.classList.remove('show');
         });
 
         // Export result button click handler
