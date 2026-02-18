@@ -32,7 +32,7 @@
     <img src="https://img.shields.io/badge/-Backend%20API-7c3aed?style=for-the-badge&logoColor=white" />
   </a>
   &nbsp;
-  <a href="https://huggingface.co/datasets/Sartajbhuvaji/Brain-Tumor-Classification-MRI">
+  <a href="https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri">
     <img src="https://img.shields.io/badge/-Dataset-FFD21E?style=for-the-badge&logoColor=black" />
   </a>
 </p>
@@ -164,7 +164,7 @@ graph TD
 
 ## Dataset
 
-Uses the [Brain Tumor Classification (MRI)](https://huggingface.co/datasets/Sartajbhuvaji/Brain-Tumor-Classification-MRI) dataset.
+Uses the [Brain Tumor Classification (MRI)](https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri) dataset.
 
 <div align="center">
 
