@@ -155,4 +155,4 @@ MIT License — see [LICENSE](LICENSE) for details.
 ## Author
 
 **Yash Naidu**  
-[yash.22bce8038@vitapstudent.ac.in](mailto:yash.22bce8038@vitapstudent.ac.in)
+[yashnnaidu@gmail.com](mailto:yashnnaidu@gmail.com)
