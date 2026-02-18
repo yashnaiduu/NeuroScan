@@ -72,3 +72,12 @@ htmlcov/
 .pytest_cache/
 *.cover
 
+# One-off scripts (not needed in repo)
+download_samples.py
+download_dataset.py
+check_imports.py
+test_clip.py
+
+# Generated files
+manifest.json
+client/env.js
