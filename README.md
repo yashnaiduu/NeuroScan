@@ -1,145 +1,158 @@
-# NeuroScan - Brain Tumor Classification
-
-NeuroScan is a deep learning-based application for classifying brain tumors from MRI scans. It utilizes a fine-tuned MobileNetV2 architecture with transfer learning to detect and classify Gliomas, Meningiomas, Pituitary tumors, and normal brain scans with high confidence.
-
-## Preview
+# NeuroScan — Brain Tumor Classification
 
 <div align="center">
-  <img src="preview.gif" width="100%" alt="NeuroScan Preview" />
+
+![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-3.x-000000?style=for-the-badge&logo=flask&logoColor=white)
+![Hugging Face](https://img.shields.io/badge/HuggingFace-Spaces-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
+![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+**AI-powered brain tumor classification from MRI scans using MobileNetV2 + Grad-CAM**
+
+[🌐 Live Demo](https://neuro-scan-brain-tumor-classification.vercel.app) · [🤗 Backend API](https://yashnaiduu-neurosacn.hf.space) · [📊 Dataset](https://huggingface.co/datasets/Sartajbhuvaji/Brain-Tumor-Classification-MRI)
+
 </div>
+
+---
+
+## Overview
+
+NeuroScan is a full-stack medical imaging web application that classifies brain MRI scans into four categories using a fine-tuned **MobileNetV2** deep learning model. It features real-time Grad-CAM heatmap visualization, CLIP-based MRI validation, and a clean, responsive frontend.
+
+## Live Deployment
+
+| Service | URL |
+|---------|-----|
+| **Frontend** | [neuro-scan-brain-tumor-classification.vercel.app](https://neuro-scan-brain-tumor-classification.vercel.app) |
+| **Backend API** | [yashnaiduu-neurosacn.hf.space](https://yashnaiduu-neurosacn.hf.space) |
 
 ## Features
 
-- **Multi-Class Classification**: Identifies Glioma, Meningioma, Pituitary, and No Tumor cases
-- **Deep Learning Model**: Powered by a custom-trained MobileNetV2 neural network
-- **Validation System**: Integrates Google Gemini Vision API to verify if uploaded images are valid brain MRI scans
-- **Grad-CAM Visualization**: Generates heatmaps to highlight brain regions influencing the AI's decision
-- **Performance Analytics**: Real-time confidence scores and detailed probability analysis
-- **Modern Interface**: Responsive web interface with dark mode and smooth transitions
+- 🧠 **4-Class Tumor Classification** — Glioma, Meningioma, Pituitary, No Tumor
+- 🔥 **Grad-CAM Heatmaps** — Visual explanation of which brain regions influenced the prediction
+- 🔍 **CLIP MRI Validation** — Rejects non-MRI images before classification using OpenAI CLIP
+- 🎲 **Random Sample Testing** — Try the model with real MRI samples from the bundled dataset
+- 📊 **Confidence Scores** — Per-class probability breakdown for every prediction
+- 🌙 **Dark Mode UI** — Responsive, modern interface with smooth animations
 
-## System Architecture
+## Architecture
 
-```mermaid
-graph TD
-    %% Nodes
-    Input("Input Image
-    224x224 RGB")
-    
-    subgraph MobileNetV2 ["MobileNetV2 Feature Extractor"]
-        Conv1("Conv2D
-        32 filters")
-        Exp("Expansion
-        1x1 Conv")
-        DW("Depthwise Conv
-        3x3")
-        Proj("Projection
-        1x1 Conv")
-    end
-
-    GAP("Global Average Pooling")
-    Dropout("Dropout 0.5")
-    Dense("Dense Output
-    4 Units")
-    Softmax("Softmax Activation")
-    Output("Probabilities
-    4 Classes")
-
-    %% Connections
-    Input --> Conv1
-    Conv1 --> Exp
-    Exp --> DW
-    DW --> Proj
-    Proj --> GAP
-    
-    GAP --> Dropout
-    Dropout --> Dense
-    Dense --> Softmax
-    Softmax --> Output
-
-    %% Styling
-    style MobileNetV2 fill:#fff,stroke:#333,stroke-width:1px,rx:10,ry:10
+```
+┌─────────────────────┐         ┌──────────────────────────────┐
+│   Frontend (Vercel) │  HTTP   │   Backend (Hugging Face)     │
+│   Static HTML/JS    │ ──────► │   Flask API                  │
+│                     │         │                              │
+│  - Upload MRI       │         │  1. CLIP validates MRI       │
+│  - View heatmap     │ ◄────── │  2. MobileNetV2 classifies   │
+│  - See results      │  JSON   │  3. Grad-CAM generates map   │
+└─────────────────────┘         └──────────────────────────────┘
 ```
 
-- **Base Model**: MobileNetV2 (pre-trained on ImageNet)
-- **Input Layer**: Accepts 224x224 RGB images
-- **Feature Extraction**: Depthwise separable convolutions to extract high-level features
-- **Global Average Pooling**: Reduces spatial dimensions
-- **Dropout Layer**: Rate of 0.5 to prevent overfitting
-- **Output Layer**: Dense layer with Softmax activation for 4-class probability distribution
+### Model Architecture
 
-This architecture ensures rapid inference times (<2s on CPU) while maintaining high accuracy (96.8% on test set).
+| Layer | Details |
+|-------|---------|
+| Base Model | MobileNetV2 (pre-trained on ImageNet) |
+| Input | 224×224 RGB |
+| Feature Extraction | Depthwise separable convolutions |
+| Pooling | Global Average Pooling |
+| Regularization | Dropout (0.5) |
+| Output | Dense (4 units) + Softmax |
+
+- **Accuracy**: 96.8% on test set
+- **Inference time**: <2s on CPU
+
+### API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | API info |
+| `/health` | GET | Health check |
+| `/stats` | GET | Model & system stats |
+| `/predict` | POST | Classify uploaded MRI |
+| `/heatmap` | POST | Generate Grad-CAM heatmap |
+| `/random` | GET | Classify a random sample MRI |
+
+## Tech Stack
+
+**Backend**
+- Python 3.9+, Flask, Flask-CORS
+- TensorFlow / Keras (MobileNetV2)
+- OpenCV (image processing)
+- Transformers + PyTorch (CLIP validation)
+- Deployed on **Hugging Face Spaces** (Docker)
+
+**Frontend**
+- HTML5, CSS3, Vanilla JavaScript
+- Font Awesome, Phosphor Icons
+- Deployed on **Vercel**
 
 ## Dataset
 
-This project uses the **Brain Tumor Classification (MRI)** dataset. The model has been trained on a comprehensive collection of MRI scans categorized into four classes:
+Uses the [Brain Tumor Classification (MRI)](https://huggingface.co/datasets/Sartajbhuvaji/Brain-Tumor-Classification-MRI) dataset with 4 classes:
 
-- **Glioma**: Primary brain tumors
-- **Meningioma**: Tumors arising from the meninges
-- **Pituitary**: Tumors affecting the pituitary gland
-- **No Tumor**: Healthy brain scans
+| Class | Description |
+|-------|-------------|
+| Glioma | Primary brain tumors from glial cells |
+| Meningioma | Tumors arising from the meninges |
+| Pituitary | Tumors affecting the pituitary gland |
+| No Tumor | Healthy brain scans |
 
-The dataset is organized into training and testing sets to ensure robust model evaluation.
-
-## Technology Stack
-
-- **Backend**: Python, Flask
-- **Machine Learning**: TensorFlow, Keras, OpenCV, NumPy
-- **Frontend**: HTML5, CSS3, JavaScript
-- **API**: Google Gemini Vision API (for validation)
-- **Deployment**: Docker support included
-
-## Installation
+## Local Development
 
 ### Prerequisites
-
-- Python 3.9 or higher
+- Python 3.9+
 - Git
 
 ### Setup
 
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification.git
-    cd NeuroScan-Brain-Tumor-Classification
-    ```
+```bash
+# Clone the repository
+git clone https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification.git
+cd NeuroScan-Brain-Tumor-Classification
 
-2.  **Create a virtual environment**
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
-    ```
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-3.  **Install dependencies**
-    ```bash
-    pip install -r requirements.txt
-    ```
+# Install dependencies
+pip install -r requirements.txt
 
-4.  **Configure Environment**
-    Create a `.env` file in the root directory and add your API keys:
-    ```env
-    GOOGLE_API_KEY=your_gemini_api_key_here
-    ```
+# Configure environment
+cp .env.example .env
+# Edit .env and add your GOOGLE_API_KEY (optional, for Gemini)
 
-5.  **Run the application**
-    ```bash
-    python server1.py
-    ```
+# Run backend
+python server1.py
+# Backend runs at http://localhost:5050
 
-6.  **Access the application**
-    Open your browser and navigate to `http://localhost:5050`
+# Run frontend (in a separate terminal)
+cd client && python3 -m http.server 8000
+# Frontend at http://localhost:8000
+```
 
-## Usage
+### Environment Variables
 
-1.  Navigate to the `Classify` section.
-2.  Upload an MRI scan image (JPG, PNG) or select "Try Random Sample" to test with the built-in dataset.
-3.  The system will analyze the image and display the classification result along with confidence scores.
-4.  View the detailed analysis breakdown to see the probability for each tumor type.
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `GOOGLE_API_KEY` | Optional | Gemini Vision API key for enhanced analysis |
+| `PORT` | Optional | Backend port (default: 5050, HF Spaces: 7860) |
+
+## Deployment
+
+| Platform | Purpose | Config File |
+|----------|---------|-------------|
+| Hugging Face Spaces | Backend API | `Dockerfile`, `entrypoint.sh` |
+| Vercel | Frontend | `vercel.json` |
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+MIT License — see [LICENSE](LICENSE) for details.
 
-## Contact
+## Author
 
-Yash Naidu
-yash.22bce8038@vitapstudent.ac.in
+**Yash Naidu**  
+[yash.22bce8038@vitapstudent.ac.in](mailto:yash.22bce8038@vitapstudent.ac.in)
