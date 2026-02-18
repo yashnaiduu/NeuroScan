@@ -81,33 +81,38 @@ NeuroScan is a full-stack medical imaging web application that classifies brain 
 ## System Architecture
 
 ```mermaid
-graph TD
-    Input["Input Image (224x224 RGB)"]
+flowchart TD
+    Input([" Input Image\n 224 × 224 RGB "])
 
-    subgraph MobileNetV2["MobileNetV2 Feature Extractor"]
-        Conv1["Conv2D (32 filters)"]
-        Exp["Expansion (1x1 Conv)"]
-        DW["Depthwise Conv (3x3)"]
-        Proj["Projection (1x1 Conv)"]
+    subgraph MobileNetV2["  MobileNetV2 Feature Extractor  "]
+        direction TB
+        Conv1(["Conv2D — 32 filters"])
+        Exp(["Expansion — 1×1 Conv"])
+        DW(["Depthwise Conv — 3×3"])
+        Proj(["Projection — 1×1 Conv"])
+        Conv1 --> Exp --> DW --> Proj
     end
 
-    GAP["Global Average Pooling"]
-    Dropout["Dropout (0.5)"]
-    Dense["Dense Output (4 Units)"]
-    Softmax["Softmax Activation"]
-    Output["Probabilities (4 Classes)"]
+    GAP(["Global Average Pooling"])
+    Dropout(["Dropout — 0.5"])
+    Dense(["Dense — 4 Units"])
+    Softmax(["Softmax Activation"])
+    Output([" Probabilities\n 4 Classes "])
 
     Input --> Conv1
-    Conv1 --> Exp
-    Exp --> DW
-    DW --> Proj
-    Proj --> GAP
-    GAP --> Dropout
-    Dropout --> Dense
-    Dense --> Softmax
-    Softmax --> Output
+    Proj --> GAP --> Dropout --> Dense --> Softmax --> Output
 
-    style MobileNetV2 fill:#1a1a2e,stroke:#444,stroke-width:1px,color:#fff
+    style Input     fill:#0f172a,stroke:#00f7ff,stroke-width:2px,color:#00f7ff,rx:20
+    style Output    fill:#0f172a,stroke:#00f7ff,stroke-width:2px,color:#00f7ff,rx:20
+    style Conv1     fill:#1e293b,stroke:#7c3aed,stroke-width:1.5px,color:#e2e8f0,rx:12
+    style Exp       fill:#1e293b,stroke:#7c3aed,stroke-width:1.5px,color:#e2e8f0,rx:12
+    style DW        fill:#1e293b,stroke:#7c3aed,stroke-width:1.5px,color:#e2e8f0,rx:12
+    style Proj      fill:#1e293b,stroke:#7c3aed,stroke-width:1.5px,color:#e2e8f0,rx:12
+    style GAP       fill:#1e293b,stroke:#06b6d4,stroke-width:1.5px,color:#e2e8f0,rx:12
+    style Dropout   fill:#1e293b,stroke:#06b6d4,stroke-width:1.5px,color:#e2e8f0,rx:12
+    style Dense     fill:#1e293b,stroke:#06b6d4,stroke-width:1.5px,color:#e2e8f0,rx:12
+    style Softmax   fill:#1e293b,stroke:#06b6d4,stroke-width:1.5px,color:#e2e8f0,rx:12
+    style MobileNetV2 fill:#0f172a,stroke:#7c3aed,stroke-width:2px,color:#a78bfa,rx:16
 ```
 
 <div align="center">
