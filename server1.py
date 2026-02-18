@@ -507,8 +507,7 @@ def random_prediction():
             'class': predicted_class_name.replace('_', ' ').capitalize(),
             'confidence': confidence_in_model_class,
             'classes': classes,
-            'image': base64_image,
-            'gemini': {'used': False, 'raw': None}
+            'image': base64_image
         }), 200
 
     except Exception as e:

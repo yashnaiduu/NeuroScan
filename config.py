@@ -28,9 +28,6 @@ class Config:
     CACHE_FOLDER = os.getenv('CACHE_FOLDER', './cache')
     CACHE_DURATION = int(os.getenv('CACHE_DURATION', 3600))
     
-    # API
-    GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY', '')
-    
     # Rate Limiting
     RATELIMIT_ENABLED = os.getenv('RATELIMIT_ENABLED', 'true').lower() == 'true'
     RATELIMIT_DEFAULT = os.getenv('RATE_LIMIT', '10 per minute')
