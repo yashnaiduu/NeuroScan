@@ -24,12 +24,7 @@ except ImportError as e:
     CLIP_AVAILABLE = False
     print(f"Transformers/Torch not found. CLIP validation will be disabled. Error: {e}")
 
-try:
-    import google.generativeai as genai
-    GEMINI_AVAILABLE = True
-except ImportError:
-    GEMINI_AVAILABLE = False
-    genai = None
+
 
 # Load environment variables
 load_dotenv()
@@ -65,33 +60,12 @@ DATASET_SUBFOLDERS = ['Training', 'Testing']
 
 # Global variables
 model = None
-gemini_vision_model = None
 grad_model = None
 clip_model = None
 clip_processor = None
 app_start_time = time.time()
 
-# Configure Gemini API
-def configure_gemini() -> None:
-    """Configure Gemini API if available and API key is set."""
-    global gemini_vision_model
-    
-    if not GEMINI_AVAILABLE:
-        logger.warning("google-generativeai package not installed. Gemini features disabled.")
-        return
-    
-    api_key = os.getenv('GOOGLE_API_KEY')
-    if not api_key:
-        logger.warning("GOOGLE_API_KEY not set. Gemini validation will be skipped.")
-        return
-    
-    try:
-        genai.configure(api_key=api_key)
-        gemini_vision_model = genai.GenerativeModel('gemini-2.0-flash-exp')
-        logger.info("Gemini API configured successfully.")
-    except Exception as e:
-        logger.error(f"Failed to configure Gemini API: {str(e)}")
-        gemini_vision_model = None
+
 
 # Load classification model
 def load_classification_model() -> None:
@@ -280,38 +254,12 @@ def verify_mri_with_clip(image_path: str) -> Dict[str, Any]:
         logger.error(f"CLIP validation failed: {e}")
         return {'used': False, 'is_mri': True, 'confidence': 0.0}
 
-# Gemini validation function (Deprecated/Fallback)
-def check_if_mri_with_gemini(filepath: str) -> Dict[str, Any]:
-    """
-    Wrapper to use CLIP instead of Gemini.
-    """
-    # Prefer CLIP if available
+def check_if_mri(filepath: str) -> Dict[str, Any]:
+    """Validate image is a brain MRI using CLIP."""
     if clip_model:
         return verify_mri_with_clip(filepath)
-        
-    # Fallback to Gemini if configured (legacy)
-    if not gemini_vision_model:
-        logger.debug("Gemini/CLIP not available. Skipping validation.")
-        return {'used': False, 'is_mri': True, 'raw': None}
-    
-    try:
-        # Load image bytes for Gemini
-        with open(filepath, "rb") as f:
-            image_bytes = f.read()
-            
-        image_pil = Image.open(io.BytesIO(image_bytes))
-        prompt = (
-            "Analyze this image. Is it a medical image, specifically a brain MRI scan of a human? "
-            "Respond ONLY with 'YES_MRI' if it is clearly a human brain MRI scan, and ONLY with 'NO_MRI' otherwise. "
-            "Do not include any other text, explanations, or punctuation."
-        )
-        response = gemini_vision_model.generate_content([prompt, image_pil])
-        text_response = (getattr(response, 'text', '') or '').strip().upper()
-        logger.info(f"Gemini raw response text: '{text_response}'")
-        return {'used': True, 'is_mri': text_response == 'YES_MRI', 'raw': text_response}
-    except Exception as e:
-        logger.error(f"Error calling Gemini API for validation: {str(e)}. Proceeding to model.")
-        return {'used': True, 'is_mri': True, 'raw': None}
+    # No validator available - allow all images through
+    return {'used': False, 'is_mri': True, 'raw': None}
 
 # Dataset functions
 def fetch_random_image_path() -> str:
@@ -413,7 +361,7 @@ def health():
     health_status = {
         'status': 'healthy',
         'model_loaded': model is not None,
-        'gemini_available': gemini_vision_model is not None,
+        'clip_available': clip_model is not None,
         'uptime': round(uptime, 2),
         'version': '1.0.0'
     }
@@ -450,17 +398,15 @@ def predict():
             logger.warning(f"Uploaded file is not a valid image: {filepath}")
             return jsonify({'error': 'Uploaded file is not a valid image'}), 400
         
-        # Gemini validation
-        gemini_result = {'used': False, 'is_mri': True, 'raw': None}
+        # MRI validation via CLIP
+        mri_check = {'used': False, 'is_mri': True}
         try:
-            with open(filepath, "rb") as f:
-                image_bytes = f.read()
-            gemini_result = check_if_mri_with_gemini(image_bytes)
+            mri_check = check_if_mri(filepath)
         except Exception as e:
-            logger.error(f"Error during Gemini check: {str(e)}. Proceeding to model.")
-        
-        if not gemini_result['is_mri']:
-            logger.info("Gemini classified image as NOT a Brain MRI.")
+            logger.error(f"Error during MRI validation: {str(e)}. Proceeding to model.")
+
+        if not mri_check['is_mri']:
+            logger.info("CLIP classified image as NOT a Brain MRI.")
             not_mri_preds = np.zeros(len(REPORTING_CLASS_NAMES))
             try:
                 not_mri_index = REPORTING_CLASS_NAMES.index('not_mri')
@@ -468,13 +414,12 @@ def predict():
             except ValueError:
                 logger.error("'not_mri' not found in REPORTING_CLASS_NAMES.")
                 return jsonify({'error': 'Configuration error'}), 500
-            
+
             classes = format_classification_results(not_mri_preds, REPORTING_CLASS_NAMES)
             return jsonify({
                 'class': 'Likely Not a Brain MRI Scan',
                 'confidence': 1.0,
-                'classes': classes,
-                'gemini': gemini_result
+                'classes': classes
             })
         
         # Proceed with classification
@@ -496,8 +441,7 @@ def predict():
         result = {
             'class': predicted_class_name.replace('_', ' ').capitalize(),
             'confidence': confidence_in_model_class,
-            'classes': classes,
-            'gemini': gemini_result
+            'classes': classes
         }
         
         return jsonify(result)
@@ -597,17 +541,15 @@ def get_heatmap():
             logger.warning(f"Uploaded file for heatmap is not a valid image: {filepath}")
             return jsonify({'error': 'Uploaded file is not a valid image'}), 400
         
-        # Gemini validation
-        gemini_result = {'used': False, 'is_mri': True, 'raw': None}
+        # MRI validation via CLIP
+        mri_check = {'used': False, 'is_mri': True}
         try:
-            with open(filepath, "rb") as f:
-                image_bytes = f.read()
-            gemini_result = check_if_mri_with_gemini(image_bytes)
+            mri_check = check_if_mri(filepath)
         except Exception as e:
-            logger.error(f"Error during Gemini check for heatmap: {str(e)}. Proceeding.")
-        
-        if not gemini_result['is_mri']:
-            logger.warning("Gemini classified image as NOT a Brain MRI. Cannot generate heatmap.")
+            logger.error(f"Error during MRI validation for heatmap: {str(e)}. Proceeding.")
+
+        if not mri_check['is_mri']:
+            logger.warning("CLIP classified image as NOT a Brain MRI. Cannot generate heatmap.")
             return jsonify({'error': 'Cannot generate heatmap for non-MRI images'}), 400
         
         # Generate heatmap
@@ -652,14 +594,12 @@ def get_stats():
             'input_shape': [None, 224, 224, 3] if model else None,
             'loaded': model is not None
         },
-        'gemini_available': gemini_vision_model is not None,
         'clip_available': clip_model is not None,
         'uptime': round(time.time() - app_start_time, 2)
     }
     return jsonify(stats)
 
 # Initialize on startup
-configure_gemini()
 load_classification_model()
 load_clip_model_async()  # Load CLIP in background to prevent startup delays
 initialize_grad_model()
