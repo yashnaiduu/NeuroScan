@@ -517,54 +517,82 @@ def predict():
 
 @app.route('/random', methods=['GET'])
 def random_prediction():
-    """Get a random prediction from the dataset."""
+    """Get a random prediction from the Hugging Face dataset."""
     if model is None:
         return jsonify({'error': 'Model not loaded'}), 503
     
-    # Check if dataset exists
-    dataset_path = app.config.get('DATASET_PATH', './Dataset')
-    if not os.path.exists(dataset_path):
-        logger.warning(f"Dataset not available at {dataset_path}")
-        return jsonify({
-            'error': 'Random samples not available',
-            'message': 'Dataset not uploaded to this deployment. Please upload your own MRI image instead.'
-        }), 404
-    
     try:
-        random_image_path = fetch_random_image_path()
-        logger.info(f"Fetching random image: {random_image_path}")
+        # Fetch a random image from public HF brain tumor dataset
+        import requests as req
+        import tempfile
+
+        # Use the Sartajbhuvaji brain tumor dataset on HF
+        # Pick a random class and image index
+        tumor_classes = ['glioma_tumor', 'meningioma_tumor', 'no_tumor', 'pituitary_tumor']
+        chosen_class = random.choice(tumor_classes)
         
-        processed_image = preprocess_image(random_image_path)
-        predictions = model.predict(processed_image, verbose=0)[0]
-        full_predictions_for_reporting = np.append(predictions, 1e-6)
+        # Map to our model class names
+        class_name_map = {
+            'glioma_tumor': 'glioma',
+            'meningioma_tumor': 'meningioma',
+            'no_tumor': 'notumor',
+            'pituitary_tumor': 'pituitary'
+        }
+
+        # Fetch image list from HF dataset API
+        hf_api_url = f"https://datasets-server.huggingface.co/rows?dataset=Sartajbhuvaji%2FBrain-Tumor-Classification-MRI&config=default&split=Training&offset=0&length=100"
+        api_resp = req.get(hf_api_url, timeout=10)
         
-        # Determine predicted class
-        model_predicted_index = np.argmax(predictions)
-        predicted_class_name = MODEL_CLASS_NAMES[model_predicted_index]
-        confidence_in_model_class = float(predictions[model_predicted_index])
-        
-        # Format results
-        classes = format_classification_results(full_predictions_for_reporting, REPORTING_CLASS_NAMES)
-        
-        # Encode image
-        base64_image = encode_image_to_base64(random_image_path)
-        if not base64_image:
-            return jsonify({'error': 'Failed to encode random image'}), 500
-        
-        return jsonify({
-            'class': predicted_class_name.replace('_', ' ').capitalize(),
-            'confidence': confidence_in_model_class,
-            'classes': classes,
-            'image': base64_image,
-            'gemini': {'used': False, 'raw': None}
-        }), 200
-    
-    except FileNotFoundError as e:
-        logger.error(f"Dataset or random image not found: {str(e)}")
-        return jsonify({'error': str(e)}), 404
+        if api_resp.status_code == 200:
+            rows = api_resp.json().get('rows', [])
+            # Filter rows by chosen class label
+            label_map = {'glioma_tumor': 0, 'meningioma_tumor': 1, 'no_tumor': 2, 'pituitary_tumor': 3}
+            target_label = label_map[chosen_class]
+            matching = [r for r in rows if r.get('row', {}).get('label') == target_label]
+            if not matching:
+                matching = rows  # fallback to any row
+            chosen_row = random.choice(matching)
+            image_url = chosen_row['row']['image']['src']
+            
+            # Download the image
+            img_resp = req.get(image_url, timeout=15)
+            img_resp.raise_for_status()
+            
+            # Save to temp file and process
+            with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as tmp:
+                tmp.write(img_resp.content)
+                tmp_path = tmp.name
+            
+            try:
+                processed_image = preprocess_image(tmp_path)
+                predictions = model.predict(processed_image, verbose=0)[0]
+                full_predictions_for_reporting = np.append(predictions, 1e-6)
+                
+                model_predicted_index = np.argmax(predictions)
+                predicted_class_name = MODEL_CLASS_NAMES[model_predicted_index]
+                confidence_in_model_class = float(predictions[model_predicted_index])
+                classes = format_classification_results(full_predictions_for_reporting, REPORTING_CLASS_NAMES)
+                base64_image = encode_image_to_base64(tmp_path)
+            finally:
+                cleanup_file(tmp_path)
+            
+            if not base64_image:
+                return jsonify({'error': 'Failed to encode image'}), 500
+            
+            return jsonify({
+                'class': predicted_class_name.replace('_', ' ').capitalize(),
+                'confidence': confidence_in_model_class,
+                'classes': classes,
+                'image': base64_image,
+                'gemini': {'used': False, 'raw': None}
+            }), 200
+        else:
+            return jsonify({'error': 'Could not fetch dataset from Hugging Face'}), 503
+
     except Exception as e:
-        logger.error(f"Unexpected error during random prediction: {str(e)}", exc_info=True)
-        return jsonify({'error': 'Error processing random image'}), 500
+        logger.error(f"Error fetching random sample from HF dataset: {str(e)}", exc_info=True)
+        return jsonify({'error': f'Error fetching random sample: {str(e)}'}), 500
+
 
 @app.route('/heatmap', methods=['POST'])
 def get_heatmap():
