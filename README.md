@@ -95,38 +95,41 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
 ## &nbsp;Model Architecture
 
 
+```
+                     ┌─────────────────┐
+                     │  📥  Input       │
+                     │  224 × 224 RGB  │
+                     └────────┬────────┘
+                              │
+          ┌───────────────────▼───────────────────┐
+          │       🧬 MobileNetV2 Extractor         │
+          │                                        │
+          │  Conv2D  →  Expansion  →  Depthwise    │
+          │  32 flt     1×1 Conv     3×3 Conv      │
+          │                   ↓                    │
+          │              Projection                │
+          │              1×1 Conv                  │
+          └───────────────────┬───────────────────┘
+                              │
+                  ┌───────────▼──────────┐
+                  │  Global Avg Pooling  │
+                  └───────────┬──────────┘
+                              │
+                  ┌───────────▼──────────┐
+                  │    Dropout  (0.5)    │
+                  └───────────┬──────────┘
+                              │
+                  ┌───────────▼──────────┐
+                  │    Dense  (4 units)  │
+                  └───────────┬──────────┘
+                              │
+                     ┌────────▼────────┐
+                     │  📤  Softmax     │
+                     │    4 Classes    │
+                     └─────────────────┘
+```
+
 <div align="center">
-
-<table>
-  <tr>
-    <td align="center"><b>📥 Input</b><br/><sub>224 × 224 RGB</sub></td>
-    <td align="center">→</td>
-    <td align="center" colspan="4">
-      <table>
-        <tr><td align="center" colspan="4"><sub><b>🧬 MobileNetV2 Feature Extractor</b></sub></td></tr>
-        <tr>
-          <td align="center"><sub>Conv2D<br/>32 filters</sub></td>
-          <td align="center"><sub>→</sub></td>
-          <td align="center"><sub>Expansion<br/>1×1 Conv</sub></td>
-          <td align="center"><sub>→</sub></td>
-          <td align="center"><sub>Depthwise<br/>3×3 Conv</sub></td>
-          <td align="center"><sub>→</sub></td>
-          <td align="center"><sub>Projection<br/>1×1 Conv</sub></td>
-        </tr>
-      </table>
-    </td>
-    <td align="center">→</td>
-    <td align="center"><b>GAP</b><br/><sub>Global Avg Pool</sub></td>
-    <td align="center">→</td>
-    <td align="center"><b>Dropout</b><br/><sub>0.5</sub></td>
-    <td align="center">→</td>
-    <td align="center"><b>Dense</b><br/><sub>4 units</sub></td>
-    <td align="center">→</td>
-    <td align="center"><b>📤 Softmax</b><br/><sub>4 Classes</sub></td>
-  </tr>
-</table>
-
-<br/>
 
 | | |
 |---|---|
@@ -138,6 +141,7 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
 | **Inference** | < 2s on CPU |
 
 </div>
+
 
 
 
