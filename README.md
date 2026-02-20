@@ -89,37 +89,7 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
 
 <div align="center">
 
-<pre>
-        +-------------------+
-        |       Input       |
-        |   224 x 224 RGB   |
-        +--------+----------+
-                 |
-   +-------------+-----------------------------+
-   |        MobileNetV2  Extractor             |
-   |                                           |
-   |  Conv2D  ->  Expansion  ->  Depthwise  -> Projection  |
-   |  32 flt      1x1 Conv       3x3 Conv      1x1 Conv    |
-   |                                           |
-   +-------------+-----------------------------+
-                 |
-        +--------+----------+
-        |  Global Avg Pool  |
-        +--------+----------+
-                 |
-        +--------+----------+
-        |   Dropout  0.5    |
-        +--------+----------+
-                 |
-        +--------+----------+
-        |   Dense  4 units  |
-        +--------+----------+
-                 |
-        +--------+----------+
-        |      Softmax      |
-        |     4 Classes     |
-        +-------------------+
-</pre>
+<img src="architecture.png" width="520" alt="Model Architecture" />
 
 <br/>
 
