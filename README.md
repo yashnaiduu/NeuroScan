@@ -21,37 +21,32 @@
 <br/><br/>
 
 <img src="https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white" />
+&nbsp;
 <img src="https://img.shields.io/badge/TensorFlow-2.x-FF6F00?style=flat-square&logo=tensorflow&logoColor=white" />
+&nbsp;
 <img src="https://img.shields.io/badge/Flask-3.x-000000?style=flat-square&logo=flask&logoColor=white" />
+&nbsp;
 <img src="https://img.shields.io/badge/OpenAI%20CLIP-412991?style=flat-square&logo=openai&logoColor=white" />
+
+<br/><br/>
+
+<img src="https://raw.githubusercontent.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/main/preview.gif" width="640" alt="NeuroScan Preview" />
 
 <br/><br/>
 
 </div>
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/main/preview.gif" width="640" alt="NeuroScan Preview" />
-</div>
-
-<br/>
-
 ---
 
-<br/>
-
-## &nbsp;What is NeuroScan?
+## &nbsp; What is NeuroScan?
 
 NeuroScan is a full-stack medical imaging application that classifies brain MRI scans into four categories using a fine-tuned **MobileNetV2** model. Upload an MRI, and the app instantly tells you the tumor type, shows a **Grad-CAM heatmap** highlighting the affected region, and validates the image is actually an MRI using **OpenAI CLIP** — all in under 2 seconds.
 
-<br/>
-
 ---
 
-<br/>
+## &nbsp; Features
 
-## &nbsp;Features
-
-<br/>
+<div align="center">
 
 <table>
   <tr>
@@ -66,7 +61,7 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <h3>�️&nbsp; CLIP MRI Validation</h3>
+      <h3>🛡️&nbsp; CLIP MRI Validation</h3>
       <p>Uses OpenAI CLIP to reject non-MRI images before they reach the classifier — no garbage in, no garbage out.</p>
     </td>
     <td width="50%" valign="top">
@@ -86,14 +81,13 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
   </tr>
 </table>
 
-<br/>
+</div>
 
 ---
 
-<br/>
+## &nbsp; Model Architecture
 
-## &nbsp;Model Architecture
-
+<div align="center">
 
 ```
                      ┌─────────────────┐
@@ -129,10 +123,10 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
                      └─────────────────┘
 ```
 
-<div align="center">
+<br/>
 
 | | |
-|---|---|
+|:---|:---|
 | **Base Model** | MobileNetV2 — ImageNet pre-trained |
 | **Input** | 224 × 224 RGB |
 | **Backbone** | Depthwise separable convolutions |
@@ -142,14 +136,9 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
 
 </div>
 
-
-
-
 ---
 
-<br/>
-
-## &nbsp;API Reference
+## &nbsp; API Reference
 
 <div align="center">
 
@@ -164,35 +153,29 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
 
 </div>
 
-<br/>
-
 ---
 
-<br/>
-
-## &nbsp;Tech Stack
+## &nbsp; Tech Stack
 
 <div align="center">
 
-|  | Technologies |
-|---|---|
+| | Technologies |
+|:---|:---|
 | **Backend** | Python · Flask · TensorFlow/Keras · OpenCV · CLIP |
 | **Frontend** | HTML · CSS · Vanilla JavaScript |
 | **Hosting** | Hugging Face Spaces (backend) · Vercel (frontend) |
 
 </div>
 
-<br/>
-
 ---
 
-<br/>
+## &nbsp; Dataset
 
-## &nbsp;Dataset
+<div align="center">
 
 The [Brain Tumor Classification MRI](https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri) dataset from Kaggle — 3,264 labeled MRI scans across four classes.
 
-<div align="center">
+<br/>
 
 | Class | Count | Description |
 |:---|:---:|:---|
@@ -203,13 +186,9 @@ The [Brain Tumor Classification MRI](https://www.kaggle.com/datasets/sartajbhuva
 
 </div>
 
-<br/>
-
 ---
 
-<br/>
-
-## &nbsp;Run Locally
+## &nbsp; Run Locally
 
 ```bash
 # 1. Clone
@@ -229,38 +208,32 @@ cd client && python3 -m http.server 8000   # → http://localhost:8000
 
 > **Tip:** Set `PORT=7860` when deploying to Hugging Face Spaces.
 
-<br/>
-
 ---
 
-<br/>
+## &nbsp; Deployment
 
-## &nbsp;Deployment
+<div align="center">
 
 | Platform | Role | Key Files |
 |:---|:---|:---|
 | Hugging Face Spaces | Backend API | `Dockerfile`, `entrypoint.sh` |
 | Vercel | Frontend | `vercel.json` |
 
-Detailed steps in [DEPLOYMENT.md](DEPLOYMENT.md).
+</div>
 
-<br/>
+Detailed steps in [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ---
 
-<br/>
-
-## &nbsp;License
+## &nbsp; License
 
 MIT — see [LICENSE](LICENSE).
 
-<br/>
-
 ---
 
-<br/>
-
 <div align="center">
+
+<br/>
 
 **Yash Naidu**
 
