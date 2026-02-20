@@ -1,132 +1,144 @@
+<!--  ╔══════════════════════════════════════════════════╗  -->
+<!--  ║               N E U R O S C A N                 ║  -->
+<!--  ╚══════════════════════════════════════════════════╝  -->
+
 <div align="center">
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Inter&weight=700&size=36&duration=3000&pause=1000&color=00F7FF&center=true&vCenter=true&width=600&lines=NeuroScan;Brain+Tumor+Classification" alt="NeuroScan" />
+<img src="https://readme-typing-svg.demolab.com?font=Inter&weight=800&size=52&duration=3500&pause=1000&color=FFFFFF&center=true&vCenter=true&width=700&lines=NeuroScan" alt="NeuroScan" />
 
-<br/>
+<img src="https://readme-typing-svg.demolab.com?font=Inter&weight=400&size=18&duration=3500&pause=1000&color=888888&center=true&vCenter=true&width=700&lines=Brain+Tumor+Classification+from+MRI+Scans" alt="subtitle" />
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/TensorFlow-2.x-FF6F00?style=flat-square&logo=tensorflow&logoColor=white" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/Flask-3.x-000000?style=flat-square&logo=flask&logoColor=white" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/Hugging%20Face-Spaces-FFD21E?style=flat-square&logo=huggingface&logoColor=black" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/Vercel-Deployed-000000?style=flat-square&logo=vercel&logoColor=white" />
-</p>
+<br/><br/>
 
-<p align="center">
-  AI-powered brain tumor classification from MRI scans<br/>
-  using MobileNetV2, Grad-CAM, and CLIP validation
-</p>
+<a href="https://neuroscan.vercel.app"><img src="https://img.shields.io/badge/LIVE%20DEMO-000000?style=for-the-badge&logo=vercel&logoColor=white" /></a>
+&nbsp;
+<a href="https://yashnaiduu-neurosacn.hf.space"><img src="https://img.shields.io/badge/BACKEND%20API-6d28d9?style=for-the-badge&logo=huggingface&logoColor=white" /></a>
+&nbsp;
+<a href="https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri"><img src="https://img.shields.io/badge/DATASET-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white" /></a>
 
-<p align="center">
-  <a href="https://neuroscan.vercel.app">
-    <img src="https://img.shields.io/badge/-Live%20Demo-00F7FF?style=for-the-badge&logoColor=black" />
-  </a>
-  &nbsp;
-  <a href="https://yashnaiduu-neurosacn.hf.space">
-    <img src="https://img.shields.io/badge/-Backend%20API-7c3aed?style=for-the-badge&logoColor=white" />
-  </a>
-  &nbsp;
-  <a href="https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri">
-    <img src="https://img.shields.io/badge/-Dataset-FFD21E?style=for-the-badge&logoColor=black" />
-  </a>
-</p>
+<br/><br/>
 
-<br/>
+<img src="https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white" />
+<img src="https://img.shields.io/badge/TensorFlow-2.x-FF6F00?style=flat-square&logo=tensorflow&logoColor=white" />
+<img src="https://img.shields.io/badge/Flask-3.x-000000?style=flat-square&logo=flask&logoColor=white" />
+<img src="https://img.shields.io/badge/OpenAI%20CLIP-412991?style=flat-square&logo=openai&logoColor=white" />
+
+<br/><br/>
 
 </div>
 
----
-
 <div align="center">
-  <img src="https://raw.githubusercontent.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/main/preview.gif" width="90%" style="border-radius: 12px;" alt="NeuroScan Preview" />
+  <img src="https://raw.githubusercontent.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/main/preview.gif" width="640" alt="NeuroScan Preview" />
 </div>
 
 <br/>
 
 ---
 
-## Overview
+<br/>
 
-NeuroScan is a full-stack medical imaging web application that classifies brain MRI scans into four categories using a fine-tuned **MobileNetV2** deep learning model. It features real-time Grad-CAM heatmap visualization and CLIP-based MRI validation, deployed on Hugging Face Spaces (backend) and Vercel (frontend).
+## &nbsp;What is NeuroScan?
+
+NeuroScan is a full-stack medical imaging application that classifies brain MRI scans into four categories using a fine-tuned **MobileNetV2** model. Upload an MRI, and the app instantly tells you the tumor type, shows a **Grad-CAM heatmap** highlighting the affected region, and validates the image is actually an MRI using **OpenAI CLIP** — all in under 2 seconds.
 
 <br/>
 
 ---
 
-## Features
+<br/>
 
-<div align="center">
+## &nbsp;Features
 
-| Feature | Description |
-|:---:|:---|
-| **4-Class Classification** | Glioma · Meningioma · Pituitary · No Tumor |
-| **Grad-CAM Heatmaps** | Visual explanation of which brain regions influenced the prediction |
-| **CLIP MRI Validation** | Rejects non-MRI images before classification using OpenAI CLIP |
-| **Random Sample Testing** | Try the model with real MRI samples from the bundled dataset |
-| **Confidence Scores** | Per-class probability breakdown for every prediction |
-| **Responsive UI** | Dark mode interface with smooth animations |
+<br/>
 
-</div>
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🧠&nbsp; 4-Class Classification</h3>
+      <p>Identifies <strong>Glioma</strong>, <strong>Meningioma</strong>, <strong>Pituitary</strong> tumors, or a <strong>healthy</strong> scan with 96.8% accuracy.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🔥&nbsp; Grad-CAM Heatmaps</h3>
+      <p>Generates visual saliency maps that highlight exactly which brain regions influenced the model's prediction.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>�️&nbsp; CLIP MRI Validation</h3>
+      <p>Uses OpenAI CLIP to reject non-MRI images before they reach the classifier — no garbage in, no garbage out.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>📊&nbsp; Confidence Scores</h3>
+      <p>Returns a full probability breakdown across all four classes for every prediction.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🎲&nbsp; Random Sample Testing</h3>
+      <p>One-click testing using real MRI samples bundled with the application — no upload required.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🌙&nbsp; Dark Mode UI</h3>
+      <p>Sleek, responsive interface with smooth animations — designed for clarity and ease of use.</p>
+    </td>
+  </tr>
+</table>
 
 <br/>
 
 ---
 
-## System Architecture
+<br/>
+
+## &nbsp;Model Architecture
 
 ```mermaid
-flowchart TD
-    Input([" Input Image\n 224 × 224 RGB "])
+flowchart LR
+    Input(["📥 Input\n224×224 RGB"])
 
-    subgraph MobileNetV2["  MobileNetV2 Feature Extractor  "]
-        direction TB
-        Conv1(["Conv2D — 32 filters"])
-        Exp(["Expansion — 1×1 Conv"])
-        DW(["Depthwise Conv — 3×3"])
-        Proj(["Projection — 1×1 Conv"])
-        Conv1 --> Exp --> DW --> Proj
+    subgraph MobileNetV2["  🧬  MobileNetV2  Feature  Extractor  "]
+        direction LR
+        Conv(["  Conv2D  \n  32 filters  "])
+        Exp(["  Expansion  \n  1×1 Conv  "])
+        DW(["  Depthwise  \n  3×3 Conv  "])
+        Proj(["  Projection  \n  1×1 Conv  "])
+        Conv --> Exp --> DW --> Proj
     end
 
-    GAP(["Global Average Pooling"])
-    Dropout(["Dropout — 0.5"])
-    Dense(["Dense — 4 Units"])
-    Softmax(["Softmax Activation"])
-    Output([" Probabilities\n 4 Classes "])
+    GAP(["Global Avg\nPooling"])
+    Drop(["Dropout\n0.5"])
+    Dense(["Dense\n4 units"])
+    Out(["📤 Softmax\n4 Classes"])
 
-    Input --> Conv1
-    Proj --> GAP --> Dropout --> Dense --> Softmax --> Output
+    Input --> Conv
+    Proj --> GAP --> Drop --> Dense --> Out
 
-    style Input     fill:#000000,stroke:#ffffff,stroke-width:2px,color:#ffffff
-    style Output    fill:#000000,stroke:#ffffff,stroke-width:2px,color:#ffffff
-    style Conv1     fill:#1a1a1a,stroke:#aaaaaa,stroke-width:1.5px,color:#ffffff
-    style Exp       fill:#1a1a1a,stroke:#aaaaaa,stroke-width:1.5px,color:#ffffff
-    style DW        fill:#1a1a1a,stroke:#aaaaaa,stroke-width:1.5px,color:#ffffff
-    style Proj      fill:#1a1a1a,stroke:#aaaaaa,stroke-width:1.5px,color:#ffffff
-    style GAP       fill:#333333,stroke:#cccccc,stroke-width:1.5px,color:#ffffff
-    style Dropout   fill:#333333,stroke:#cccccc,stroke-width:1.5px,color:#ffffff
-    style Dense     fill:#333333,stroke:#cccccc,stroke-width:1.5px,color:#ffffff
-    style Softmax   fill:#333333,stroke:#cccccc,stroke-width:1.5px,color:#ffffff
-    style MobileNetV2 fill:#111111,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style Input fill:#111,stroke:#555,color:#fff
+    style Out   fill:#111,stroke:#555,color:#fff
+    style Conv  fill:#1a1a1a,stroke:#666,color:#ccc
+    style Exp   fill:#1a1a1a,stroke:#666,color:#ccc
+    style DW    fill:#1a1a1a,stroke:#666,color:#ccc
+    style Proj  fill:#1a1a1a,stroke:#666,color:#ccc
+    style GAP   fill:#222,stroke:#777,color:#ccc
+    style Drop  fill:#222,stroke:#777,color:#ccc
+    style Dense fill:#222,stroke:#777,color:#ccc
+    style MobileNetV2 fill:#0d0d0d,stroke:#aaa,color:#fff
 ```
+
+<br/>
 
 <div align="center">
 
-| Layer | Details |
-|:---|:---|
-| Base Model | MobileNetV2 (pre-trained on ImageNet) |
-| Input | 224 × 224 RGB |
-| Feature Extraction | Depthwise separable convolutions |
-| Pooling | Global Average Pooling |
-| Regularization | Dropout (0.5) |
-| Output | Dense (4 units) + Softmax |
-
-**Accuracy: 96.8% on test set &nbsp;·&nbsp; Inference: < 2s on CPU**
+| | |
+|---|---|
+| **Base Model** | MobileNetV2 — ImageNet pre-trained |
+| **Input** | 224 × 224 RGB |
+| **Backbone** | Depthwise separable convolutions |
+| **Head** | GAP → Dropout(0.5) → Dense(4) → Softmax |
+| **Accuracy** | 96.8% on held-out test set |
+| **Inference** | < 2s on CPU |
 
 </div>
 
@@ -134,18 +146,20 @@ flowchart TD
 
 ---
 
-## API Endpoints
+<br/>
+
+## &nbsp;API Reference
 
 <div align="center">
 
 | Endpoint | Method | Description |
 |:---|:---:|:---|
-| `/` | `GET` | API info |
+| `/` | `GET` | API info & version |
 | `/health` | `GET` | Health check |
-| `/stats` | `GET` | Model and system stats |
-| `/predict` | `POST` | Classify uploaded MRI |
+| `/stats` | `GET` | Model & system stats |
+| `/predict` | `POST` | Classify an uploaded MRI |
 | `/heatmap` | `POST` | Generate Grad-CAM heatmap |
-| `/random` | `GET` | Classify a random sample MRI |
+| `/random` | `GET` | Test with a random sample MRI |
 
 </div>
 
@@ -153,13 +167,17 @@ flowchart TD
 
 ---
 
-## Tech Stack
+<br/>
+
+## &nbsp;Tech Stack
 
 <div align="center">
 
-**Backend** &nbsp;·&nbsp; Python 3.9+ &nbsp;·&nbsp; Flask &nbsp;·&nbsp; TensorFlow / Keras &nbsp;·&nbsp; OpenCV &nbsp;·&nbsp; CLIP (Transformers + PyTorch) &nbsp;·&nbsp; Hugging Face Spaces (Docker)
-
-**Frontend** &nbsp;·&nbsp; HTML5 &nbsp;·&nbsp; CSS3 &nbsp;·&nbsp; Vanilla JavaScript &nbsp;·&nbsp; Vercel
+|  | Technologies |
+|---|---|
+| **Backend** | Python · Flask · TensorFlow/Keras · OpenCV · CLIP |
+| **Frontend** | HTML · CSS · Vanilla JavaScript |
+| **Hosting** | Hugging Face Spaces (backend) · Vercel (frontend) |
 
 </div>
 
@@ -167,18 +185,20 @@ flowchart TD
 
 ---
 
-## Dataset
+<br/>
 
-Uses the [Brain Tumor Classification (MRI)](https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri) dataset.
+## &nbsp;Dataset
+
+The [Brain Tumor Classification MRI](https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri) dataset from Kaggle — 3,264 labeled MRI scans across four classes.
 
 <div align="center">
 
-| Class | Description |
-|:---|:---|
-| Glioma | Primary brain tumors from glial cells |
-| Meningioma | Tumors arising from the meninges |
-| Pituitary | Tumors affecting the pituitary gland |
-| No Tumor | Healthy brain scans |
+| Class | Count | Description |
+|:---|:---:|:---|
+| Glioma | ~826 | Primary tumors from glial cells |
+| Meningioma | ~822 | Tumors from the meninges |
+| Pituitary | ~827 | Tumors of the pituitary gland |
+| No Tumor | ~395 | Healthy brain scans |
 
 </div>
 
@@ -186,74 +206,69 @@ Uses the [Brain Tumor Classification (MRI)](https://www.kaggle.com/datasets/sart
 
 ---
 
-## Local Development
+<br/>
+
+## &nbsp;Run Locally
 
 ```bash
-# Clone the repository
+# 1. Clone
 git clone https://github.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification.git
 cd NeuroScan-Brain-Tumor-Classification
 
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-
-# Install dependencies
+# 2. Environment
+python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 
-# Run backend
-python server1.py               # http://localhost:5050
+# 3. Start backend
+python server1.py               # → http://localhost:5050
 
-# Run frontend (separate terminal)
-cd client && python3 -m http.server 8000   # http://localhost:8000
+# 4. Start frontend (new terminal)
+cd client && python3 -m http.server 8000   # → http://localhost:8000
 ```
 
-<br/>
-
-**Environment Variables**
-
-| Variable | Required | Description |
-|:---|:---:|:---|
-| `PORT` | Optional | Backend port (default: 5050, HF Spaces: 7860) |
+> **Tip:** Set `PORT=7860` when deploying to Hugging Face Spaces.
 
 <br/>
 
 ---
 
-## Deployment
+<br/>
 
-<div align="center">
+## &nbsp;Deployment
 
-| Platform | Purpose | Config |
+| Platform | Role | Key Files |
 |:---|:---|:---|
 | Hugging Face Spaces | Backend API | `Dockerfile`, `entrypoint.sh` |
 | Vercel | Frontend | `vercel.json` |
 
-</div>
-
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
+Detailed steps in [DEPLOYMENT.md](DEPLOYMENT.md).
 
 <br/>
 
 ---
 
-## License
+<br/>
 
-MIT License — see [LICENSE](LICENSE) for details.
+## &nbsp;License
+
+MIT — see [LICENSE](LICENSE).
 
 <br/>
 
 ---
+
+<br/>
 
 <div align="center">
 
 **Yash Naidu**
 
-<a href="mailto:yashnnaidu@gmail.com">
-  <img src="https://img.shields.io/badge/yashnnaidu%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white" />
-</a>
+<a href="mailto:yashnnaidu@gmail.com"><img src="https://img.shields.io/badge/yashnnaidu%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white" /></a>
 
 <br/><br/>
 
-<sub>Built with TensorFlow · Deployed on Hugging Face & Vercel</sub>
+<sub>Built with TensorFlow &nbsp;·&nbsp; Deployed on Hugging Face & Vercel</sub>
+
+<br/>
 
 </div>
