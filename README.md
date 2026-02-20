@@ -94,31 +94,39 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
 
 ## &nbsp;Model Architecture
 
-```mermaid
-flowchart TD
-    Input(["📥  Input — 224×224 RGB"])
-
-    subgraph MobileNetV2["  🧬  MobileNetV2  Feature  Extractor  "]
-        direction TB
-        Conv(["Conv2D · 32 filters"])
-        Exp(["Expansion · 1×1 Conv"])
-        DW(["Depthwise · 3×3 Conv"])
-        Proj(["Projection · 1×1 Conv"])
-        Conv --> Exp --> DW --> Proj
-    end
-
-    GAP(["Global Average Pooling"])
-    Drop(["Dropout  ·  0.5"])
-    Dense(["Dense  ·  4 units"])
-    Out(["📤  Softmax — 4 Classes"])
-
-    Input --> Conv
-    Proj --> GAP --> Drop --> Dense --> Out
-```
-
-<br/>
 
 <div align="center">
+
+<table>
+  <tr>
+    <td align="center"><b>📥 Input</b><br/><sub>224 × 224 RGB</sub></td>
+    <td align="center">→</td>
+    <td align="center" colspan="4">
+      <table>
+        <tr><td align="center" colspan="4"><sub><b>🧬 MobileNetV2 Feature Extractor</b></sub></td></tr>
+        <tr>
+          <td align="center"><sub>Conv2D<br/>32 filters</sub></td>
+          <td align="center"><sub>→</sub></td>
+          <td align="center"><sub>Expansion<br/>1×1 Conv</sub></td>
+          <td align="center"><sub>→</sub></td>
+          <td align="center"><sub>Depthwise<br/>3×3 Conv</sub></td>
+          <td align="center"><sub>→</sub></td>
+          <td align="center"><sub>Projection<br/>1×1 Conv</sub></td>
+        </tr>
+      </table>
+    </td>
+    <td align="center">→</td>
+    <td align="center"><b>GAP</b><br/><sub>Global Avg Pool</sub></td>
+    <td align="center">→</td>
+    <td align="center"><b>Dropout</b><br/><sub>0.5</sub></td>
+    <td align="center">→</td>
+    <td align="center"><b>Dense</b><br/><sub>4 units</sub></td>
+    <td align="center">→</td>
+    <td align="center"><b>📤 Softmax</b><br/><sub>4 Classes</sub></td>
+  </tr>
+</table>
+
+<br/>
 
 | | |
 |---|---|
@@ -131,7 +139,7 @@ flowchart TD
 
 </div>
 
-<br/>
+
 
 ---
 
