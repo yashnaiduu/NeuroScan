@@ -1,6 +1,6 @@
-<!--  ╔══════════════════════════════════════════════════╗  -->
-<!--  ║               N E U R O S C A N                 ║  -->
-<!--  ╚══════════════════════════════════════════════════╝  -->
+<!-- ╔══════════════════════════════════════════════════╗ -->
+<!-- ║ N E U R O S C A N ║ -->
+<!-- ╚══════════════════════════════════════════════════╝ -->
 
 <div align="center">
 
@@ -49,36 +49,36 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
 <div align="center">
 
 <table>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>🧠&nbsp; 4-Class Classification</h3>
-      <p>Identifies <strong>Glioma</strong>, <strong>Meningioma</strong>, <strong>Pituitary</strong> tumors, or a <strong>healthy</strong> scan with 96.8% accuracy.</p>
-    </td>
-    <td width="50%" valign="top">
-      <h3>🔥&nbsp; Grad-CAM Heatmaps</h3>
-      <p>Generates visual saliency maps that highlight exactly which brain regions influenced the model's prediction.</p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>🛡️&nbsp; CLIP MRI Validation</h3>
-      <p>Uses OpenAI CLIP to reject non-MRI images before they reach the classifier — no garbage in, no garbage out.</p>
-    </td>
-    <td width="50%" valign="top">
-      <h3>📊&nbsp; Confidence Scores</h3>
-      <p>Returns a full probability breakdown across all four classes for every prediction.</p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>🎲&nbsp; Random Sample Testing</h3>
-      <p>One-click testing using real MRI samples bundled with the application — no upload required.</p>
-    </td>
-    <td width="50%" valign="top">
-      <h3>🌙&nbsp; Dark Mode UI</h3>
-      <p>Sleek, responsive interface with smooth animations — designed for clarity and ease of use.</p>
-    </td>
-  </tr>
+ <tr>
+ <td width="50%" valign="top">
+ <h3>&nbsp; 4-Class Classification</h3>
+ <p>Identifies <strong>Glioma</strong>, <strong>Meningioma</strong>, <strong>Pituitary</strong> tumors, or a <strong>healthy</strong> scan with 96.8% accuracy.</p>
+ </td>
+ <td width="50%" valign="top">
+ <h3>&nbsp; Grad-CAM Heatmaps</h3>
+ <p>Generates visual saliency maps that highlight exactly which brain regions influenced the model's prediction.</p>
+ </td>
+ </tr>
+ <tr>
+ <td width="50%" valign="top">
+ <h3>&nbsp; CLIP MRI Validation</h3>
+ <p>Uses OpenAI CLIP to reject non-MRI images before they reach the classifier — no garbage in, no garbage out.</p>
+ </td>
+ <td width="50%" valign="top">
+ <h3>&nbsp; Confidence Scores</h3>
+ <p>Returns a full probability breakdown across all four classes for every prediction.</p>
+ </td>
+ </tr>
+ <tr>
+ <td width="50%" valign="top">
+ <h3>&nbsp; Random Sample Testing</h3>
+ <p>One-click testing using real MRI samples bundled with the application — no upload required.</p>
+ </td>
+ <td width="50%" valign="top">
+ <h3>&nbsp; Dark Mode UI</h3>
+ <p>Sleek, responsive interface with smooth animations — designed for clarity and ease of use.</p>
+ </td>
+ </tr>
 </table>
 
 </div>
@@ -90,37 +90,37 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
 <div align="center">
 
 ```
-                     ┌─────────────────┐
-                     │  📥  Input       │
-                     │  224 × 224 RGB  │
-                     └────────┬────────┘
-                              │
-          ┌───────────────────▼───────────────────┐
-          │       🧬 MobileNetV2 Extractor         │
-          │                                        │
-          │  Conv2D  →  Expansion  →  Depthwise    │
-          │  32 flt     1×1 Conv     3×3 Conv      │
-          │                   ↓                    │
-          │              Projection                │
-          │              1×1 Conv                  │
-          └───────────────────┬───────────────────┘
-                              │
-                  ┌───────────▼──────────┐
-                  │  Global Avg Pooling  │
-                  └───────────┬──────────┘
-                              │
-                  ┌───────────▼──────────┐
-                  │    Dropout  (0.5)    │
-                  └───────────┬──────────┘
-                              │
-                  ┌───────────▼──────────┐
-                  │    Dense  (4 units)  │
-                  └───────────┬──────────┘
-                              │
-                     ┌────────▼────────┐
-                     │  📤  Softmax     │
-                     │    4 Classes    │
-                     └─────────────────┘
+ ┌─────────────────┐
+ │ Input │
+ │ 224 × 224 RGB │
+ └────────┬────────┘
+ │
+ ┌───────────────────▼───────────────────┐
+ │ MobileNetV2 Extractor │
+ │ │
+ │ Conv2D → Expansion → Depthwise │
+ │ 32 flt 1×1 Conv 3×3 Conv │
+ │ ↓ │
+ │ Projection │
+ │ 1×1 Conv │
+ └───────────────────┬───────────────────┘
+ │
+ ┌───────────▼──────────┐
+ │ Global Avg Pooling │
+ └───────────┬──────────┘
+ │
+ ┌───────────▼──────────┐
+ │ Dropout (0.5) │
+ └───────────┬──────────┘
+ │
+ ┌───────────▼──────────┐
+ │ Dense (4 units) │
+ └───────────┬──────────┘
+ │
+ ┌────────▼────────┐
+ │ Softmax │
+ │ 4 Classes │
+ └─────────────────┘
 ```
 
 <br/>
@@ -200,10 +200,10 @@ python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 
 # 3. Start backend
-python server1.py               # → http://localhost:5050
+python server1.py # → http://localhost:5050
 
 # 4. Start frontend (new terminal)
-cd client && python3 -m http.server 8000   # → http://localhost:8000
+cd client && python3 -m http.server 8000 # → http://localhost:8000
 ```
 
 > **Tip:** Set `PORT=7860` when deploying to Hugging Face Spaces.
