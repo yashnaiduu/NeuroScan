@@ -44,7 +44,7 @@
 ---
 
 <div align="center">
-  <img src="preview.gif" width="90%" style="border-radius: 12px;" alt="NeuroScan Preview" />
+  <img src="https://raw.githubusercontent.com/yashnaiduu/NeuroScan-Brain-Tumor-Classification/main/preview.gif" width="90%" style="border-radius: 12px;" alt="NeuroScan Preview" />
 </div>
 
 <br/>
@@ -102,17 +102,17 @@ flowchart TD
     Input --> Conv1
     Proj --> GAP --> Dropout --> Dense --> Softmax --> Output
 
-    style Input     fill:#0f172a,stroke:#00f7ff,stroke-width:2px,color:#00f7ff,rx:20
-    style Output    fill:#0f172a,stroke:#00f7ff,stroke-width:2px,color:#00f7ff,rx:20
-    style Conv1     fill:#1e293b,stroke:#7c3aed,stroke-width:1.5px,color:#e2e8f0,rx:12
-    style Exp       fill:#1e293b,stroke:#7c3aed,stroke-width:1.5px,color:#e2e8f0,rx:12
-    style DW        fill:#1e293b,stroke:#7c3aed,stroke-width:1.5px,color:#e2e8f0,rx:12
-    style Proj      fill:#1e293b,stroke:#7c3aed,stroke-width:1.5px,color:#e2e8f0,rx:12
-    style GAP       fill:#1e293b,stroke:#06b6d4,stroke-width:1.5px,color:#e2e8f0,rx:12
-    style Dropout   fill:#1e293b,stroke:#06b6d4,stroke-width:1.5px,color:#e2e8f0,rx:12
-    style Dense     fill:#1e293b,stroke:#06b6d4,stroke-width:1.5px,color:#e2e8f0,rx:12
-    style Softmax   fill:#1e293b,stroke:#06b6d4,stroke-width:1.5px,color:#e2e8f0,rx:12
-    style MobileNetV2 fill:#0f172a,stroke:#7c3aed,stroke-width:2px,color:#a78bfa,rx:16
+    style Input     fill:#000000,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style Output    fill:#000000,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style Conv1     fill:#1a1a1a,stroke:#aaaaaa,stroke-width:1.5px,color:#ffffff
+    style Exp       fill:#1a1a1a,stroke:#aaaaaa,stroke-width:1.5px,color:#ffffff
+    style DW        fill:#1a1a1a,stroke:#aaaaaa,stroke-width:1.5px,color:#ffffff
+    style Proj      fill:#1a1a1a,stroke:#aaaaaa,stroke-width:1.5px,color:#ffffff
+    style GAP       fill:#333333,stroke:#cccccc,stroke-width:1.5px,color:#ffffff
+    style Dropout   fill:#333333,stroke:#cccccc,stroke-width:1.5px,color:#ffffff
+    style Dense     fill:#333333,stroke:#cccccc,stroke-width:1.5px,color:#ffffff
+    style Softmax   fill:#333333,stroke:#cccccc,stroke-width:1.5px,color:#ffffff
+    style MobileNetV2 fill:#111111,stroke:#ffffff,stroke-width:2px,color:#ffffff
 ```
 
 <div align="center">
