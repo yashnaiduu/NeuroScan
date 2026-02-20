@@ -95,36 +95,25 @@ NeuroScan is a full-stack medical imaging application that classifies brain MRI 
 ## &nbsp;Model Architecture
 
 ```mermaid
-flowchart LR
-    Input(["📥 Input\n224×224 RGB"])
+flowchart TD
+    Input(["📥  Input — 224×224 RGB"])
 
     subgraph MobileNetV2["  🧬  MobileNetV2  Feature  Extractor  "]
-        direction LR
-        Conv(["  Conv2D  \n  32 filters  "])
-        Exp(["  Expansion  \n  1×1 Conv  "])
-        DW(["  Depthwise  \n  3×3 Conv  "])
-        Proj(["  Projection  \n  1×1 Conv  "])
+        direction TB
+        Conv(["Conv2D · 32 filters"])
+        Exp(["Expansion · 1×1 Conv"])
+        DW(["Depthwise · 3×3 Conv"])
+        Proj(["Projection · 1×1 Conv"])
         Conv --> Exp --> DW --> Proj
     end
 
-    GAP(["Global Avg\nPooling"])
-    Drop(["Dropout\n0.5"])
-    Dense(["Dense\n4 units"])
-    Out(["📤 Softmax\n4 Classes"])
+    GAP(["Global Average Pooling"])
+    Drop(["Dropout  ·  0.5"])
+    Dense(["Dense  ·  4 units"])
+    Out(["📤  Softmax — 4 Classes"])
 
     Input --> Conv
     Proj --> GAP --> Drop --> Dense --> Out
-
-    style Input fill:#111,stroke:#555,color:#fff
-    style Out   fill:#111,stroke:#555,color:#fff
-    style Conv  fill:#1a1a1a,stroke:#666,color:#ccc
-    style Exp   fill:#1a1a1a,stroke:#666,color:#ccc
-    style DW    fill:#1a1a1a,stroke:#666,color:#ccc
-    style Proj  fill:#1a1a1a,stroke:#666,color:#ccc
-    style GAP   fill:#222,stroke:#777,color:#ccc
-    style Drop  fill:#222,stroke:#777,color:#ccc
-    style Dense fill:#222,stroke:#777,color:#ccc
-    style MobileNetV2 fill:#0d0d0d,stroke:#aaa,color:#fff
 ```
 
 <br/>
