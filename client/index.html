@@ -3819,6 +3819,9 @@
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', () => {
+            // Wake up backend silently
+            fetch(API_URL + '/health').catch(() => {});
+
             batchFilesList.style.display = 'none';
             batchResults.style.display = 'none';
             heatmapImage.style.display = 'none';
