@@ -2256,6 +2256,79 @@
             letter-spacing: 2px;
             text-transform: uppercase;
         }
+        /* Initialization Toast Notification */
+        .init-toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(var(--card-rgb), 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--primary);
+            border-radius: var(--radius);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 350px;
+        }
+
+        .init-toast.show {
+            transform: translateX(0);
+        }
+
+        .init-toast-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-top: 2px;
+        }
+
+        .init-toast-content {
+            flex: 1;
+        }
+
+        .init-toast-title {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+
+        .init-toast-message {
+            font-size: 0.9rem;
+            color: var(--muted-foreground);
+            line-height: 1.4;
+        }
+
+        .init-toast-close {
+            background: transparent;
+            border: none;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color var(--transition-duration) ease;
+        }
+
+        .init-toast-close:hover {
+            color: var(--foreground);
+        }
+
+        @media (max-width: 640px) {
+            .init-toast {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                max-width: none;
+                transform: translateY(150%);
+            }
+            .init-toast.show {
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
@@ -2704,6 +2777,19 @@
             </div>
         </div>
     </div>
+    <!-- Initialization Disclaimer Toast -->
+    <div class="init-toast" id="initToast">
+        <div class="init-toast-icon">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="init-toast-content">
+            <div class="init-toast-title">Please Note</div>
+            <div class="init-toast-message">Our backend servers may take up to 30 seconds to initialize when processing your first request. Thank you for your patience!</div>
+        </div>
+        <button class="init-toast-close" id="initToastClose">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
 
     <script>
         // Create grid lines
@@ -3014,7 +3100,13 @@
                 displayResults(currentClassification);
 
                 // Fetch heatmap for random image (requires re-uploading the image)
-                const blob = await fetch(`data:image/png;base64,${data.image}`).then(res => res.blob());
+                const byteString = atob(data.image);
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+                for (let i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                const blob = new Blob([ab], { type: 'image/png' });
                 const file = new File([blob], 'random_image.png', { type: 'image/png' });
                 const formData = new FormData();
                 formData.append('file', file);
@@ -3736,6 +3828,26 @@
             setTimeout(() => {
                 document.body.style.transition = 'opacity 0.5s ease';
                 document.body.style.opacity = '1';
+                
+                // Initialization Disclaimer Toast Logic
+                const initToast = document.getElementById('initToast');
+                const initToastClose = document.getElementById('initToastClose');
+                
+                if (initToast && initToastClose && !sessionStorage.getItem('initToastShown')) {
+                    setTimeout(() => {
+                        initToast.classList.add('show');
+                        sessionStorage.setItem('initToastShown', 'true');
+                        
+                        // Auto-hide after 8 seconds
+                        setTimeout(() => {
+                            initToast.classList.remove('show');
+                        }, 8000);
+                    }, 500); // Show shortly after fade in
+                    
+                    initToastClose.addEventListener('click', () => {
+                        initToast.classList.remove('show');
+                    });
+                }
             }, 100);
         });
     </script>
